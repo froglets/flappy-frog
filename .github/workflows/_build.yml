@@ -19,10 +19,6 @@ on:
       github_sha:
         type: string
         required: true
-      remote_center:
-        type: string
-        required: false
-        default: https://sogo.jfrog.io/artifactory/api/conan/conan-center
       remote_project:
         type: string
         required: false
@@ -93,8 +89,8 @@ jobs:
       - name: Connect to remote (project)
         if: ${{ inputs.remote_project }}
         run: |
-          conan remote add -i 0 sogo-project ${{ inputs.remote_project }}
-          conan user -r sogo-project -p ${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
+          conan remote add -i 0 remote-project ${{ inputs.remote_project }}
+          conan user -r remote-project -p ${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
 
       - name: Prepare deps
         run: |
