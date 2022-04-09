@@ -25,7 +25,7 @@ jobs:
           fi
 
   ci-release:
-    uses: jgsogo/template-cpp-project/.github/workflows/_build.yml@master
+    uses: jgsogo/flappy-frog/.github/workflows/_build.yml@master
     needs:
       - release-available  # Only run tests if version is available
       - cmakelists-version  # Needed to access dependent variable

@@ -90,10 +90,6 @@ jobs:
           conan --version
           conan config home
 
-      - name: Connect to remote (center)
-        run: |
-          conan remote add -i 0 sogo ${{ inputs.remote_center }}
-
       - name: Connect to remote (project)
         if: ${{ inputs.remote_project }}
         run: |

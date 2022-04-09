@@ -10,14 +10,14 @@ on:
 
 jobs:
   cmakelists-version:
-    uses: jgsogo/template-cpp-project/.github/workflows/_parse_version.yml@master
+    uses: jgsogo/flappy-frog/.github/workflows/_parse_version.yml@master
     with:
       github_sha: ${{ github.sha }}
 
   ci-release:
     needs:
       cmakelists-version
-    uses: jgsogo/template-cpp-project/.github/workflows/_build.yml@master
+    uses: jgsogo/flappy-frog/.github/workflows/_build.yml@master
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
