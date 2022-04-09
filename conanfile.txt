@@ -6,7 +6,11 @@ cli11/2.1.2
 fmt/8.1.1
 tinkerforge-bindings/2.1.32
 
+# Testing
 catch2/2.13.7
+
+# Overrides
+zlib/1.2.12
 
 [generators]
 CMakeToolchain

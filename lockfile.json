@@ -9,7 +9,8 @@
      "14",
      "15",
      "16",
-     "17"
+     "17",
+     "5"
     ],
     "path": "conanfile.txt",
     "context": "host"
@@ -51,7 +52,7 @@
     "context": "host"
    },
    "5": {
-    "ref": "zlib/1.2.11#6fcaa61190cb5889704d322e95698630",
+    "ref": "zlib/1.2.12#82202701ea360c0863f1db5008067122",
     "context": "host"
    },
    "6": {
