@@ -99,7 +99,7 @@
     "context": "host"
    },
    "16": {
-    "ref": "tinkerforge-bindings/2.1.32#173fe499e60ea6705c254ce1104cf11c",
+    "ref": "tinkerforge-bindings/2.1.32#9f00f8a4e3560ecbd3e20f704d069eb3",
     "context": "host"
    },
    "17": {
