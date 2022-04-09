@@ -1,2 +1,16 @@
 .idea/
 cmake-build-*/
+.DS_Store
+test_package/conan.lock
+test_package/conanbuildinfo.txt
+test_package/conaninfo.txt
+test_package/graph_info.json
+test_package/build-release/*
+build/
+conan/**
+**/project.xcworkspace/*
+**/xcuserdata/*
+conan.lock
+conanbuildinfo.txt
+conaninfo.txt
+graph_info.json
