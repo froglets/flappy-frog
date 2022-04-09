@@ -25,7 +25,15 @@ conan install --lockfile=lockfile.json ../conanfile.txt --build=missing
 Use your preferred IDE or tool to build, debug and develop the project, typically:
 
 ```
+cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
+cmake --build .
+cmake --install .
+```
 
+And enjoy
+
+```
+./install/bin/mygame
 ```
 
 ## Update dependencies
