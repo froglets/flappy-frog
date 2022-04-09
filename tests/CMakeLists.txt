@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-find_package(Catch2 REQUIRED)
+find_package(Catch2 REQUIRED CONFIG)
 
 enable_testing()
 
@@ -10,8 +10,8 @@ add_executable(unit_tests
         # TODO: Add your 'test_xxxx.cpp' files here
         )
 target_link_libraries(unit_tests
-        Catch2::Catch2
-        ${PROJECT_NAME}
+        catch2::catch2
+        
         )
 
 # Load and use the .cmake file provided by Catch so all the test cases

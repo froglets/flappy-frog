@@ -1,6 +1,17 @@
 [requires]
+sdl/2.0.20
+sdl_image/2.0.5
+box2d/2.4.1
+cli11/2.1.2
+fmt/8.1.1
+tinkerforge-bindings/2.1.32
+
+# Testing
 catch2/2.13.7
 
+# Overrides
+zlib/1.2.12
+
 [generators]
-cmake
-cmake_find_package
+CMakeToolchain
+CMakeDeps
