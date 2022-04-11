@@ -49,20 +49,12 @@ jobs:
           conan lock create --name=${{ github.event.repository.name }} --version=0.1.0 --base --lockfile-out lockfile.json --build --update --profile:host=.conan/profiles/release --profile:build=default conanfile.txt
           git diff
 
-      # TODO: Provide tokens
-      #- uses: tibdex/github-app-token@7ce9ffdcdeb2ba82b01b51d6584a6a85872336d4
-      #  id: generate-token
-      #  with:
-      #    app_id: ${{ secrets.APP_RECIPES_APP_ID }}
-      #    private_key: ${{ secrets.APP_RECIPES_PRIVATE_KEY }}
-
-      #- name: Create pull request
-      #  uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
-      #  with:
-      #    path: /home/conan/library
-      #    commit-message: "Update lockfile"
-      #    branch: "update-lockfile"
-      #    title: "[bot] Update lockfile"
-      #    body: "Recreated base lockfile"
-      #    reviewers: "jgsogo"
-      #    token: ${{ steps.generate-token.outputs.token }}
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a
+        with:
+          path: /home/conan/library
+          commit-message: "Update lockfile"
+          branch: "update-lockfile"
+          title: "[bot] Update lockfile"
+          body: "Recreated base lockfile"
+          reviewers: "jgsogo"
