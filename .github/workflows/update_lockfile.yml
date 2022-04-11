@@ -46,7 +46,7 @@ jobs:
 
       - name: Update deps in lockfile
         run: |
-          conan lock create --name=${{ github.event.repository.name }} --version=0.1.0 --base --lockfile-out lockfile.json --build --profile:host=.conan/profiles/release --profile:build=default conanfile.txt
+          conan lock create --name=${{ github.event.repository.name }} --version=0.1.0 --base --lockfile-out lockfile.json --build --update --profile:host=.conan/profiles/release --profile:build=default conanfile.txt
           git diff
 
       # TODO: Provide tokens
