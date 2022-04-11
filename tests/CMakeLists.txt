@@ -10,8 +10,7 @@ add_executable(unit_tests
         # TODO: Add your 'test_xxxx.cpp' files here
         )
 target_link_libraries(unit_tests
-        catch2::catch2
-        
+        Catch2::Catch2
         )
 
 # Load and use the .cmake file provided by Catch so all the test cases
