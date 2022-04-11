@@ -116,7 +116,7 @@ jobs:
         run: |
           cd build
           conan info --lockfile=lockfile.json ../${{ inputs.conanfile }} --json=project.json
-          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing --generator=virtualenv
+          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing
           conan remove "*" --builds --force
           conan remove "*" --src --force
 
@@ -134,7 +134,7 @@ jobs:
         run: |
           cd build
           . ./activate.sh
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=$CONAN_CMAKE_TOOLCHAIN_FILE -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
+          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
           make
 
       - name: Run tests
