@@ -10,13 +10,14 @@
      "39",
      "40",
      "41",
-     "22"
+     "22",
+     "21"
     ],
     "path": "conanfile.txt",
     "context": "host"
    },
    "1": {
-    "ref": "sdl/2.0.20#0558457d8f726cf73f006d89339feb49",
+    "ref": "sdl/2.0.20#427d90efcbe16537c4a53cf9bd1b00fe",
     "requires": [
      "2",
      "3",
@@ -165,7 +166,7 @@
     "context": "host"
    },
    "19": {
-    "ref": "wayland/1.20.0#16d58f56bc1609420e813b64882cbb89",
+    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
     "requires": [
      "20",
      "21",
@@ -184,7 +185,7 @@
     "context": "host"
    },
    "21": {
-    "ref": "libxml2/2.9.12#cf81e476626862adf223e1faa9f09a26",
+    "ref": "libxml2/2.9.13#1edca2c1d8cfbb84138f2a25e06a8b18",
     "requires": [
      "22",
      "2"
@@ -199,7 +200,7 @@
     "context": "host"
    },
    "23": {
-    "ref": "expat/2.4.6#0162f1ea91994145cf9e8428f6474e19",
+    "ref": "expat/2.4.8#74de5449bbfeb85d25a22bb2feddc679",
     "context": "host"
    },
    "24": {
@@ -228,7 +229,7 @@
     "context": "host"
    },
    "27": {
-    "ref": "libunwind/1.5.0#517357aa7370c528840b30a1b31e13d7",
+    "ref": "libunwind/1.6.2#84d8914da06b5faf5bdf56c3d02cf389",
     "requires": [
      "28",
      "22"
@@ -781,7 +782,7 @@
     "context": "build"
    },
    "115": {
-    "ref": "libxml2/2.9.12#cf81e476626862adf223e1faa9f09a26",
+    "ref": "libxml2/2.9.13#1edca2c1d8cfbb84138f2a25e06a8b18",
     "requires": [
      "116",
      "117"
@@ -800,7 +801,7 @@
     "context": "build"
    },
    "118": {
-    "ref": "expat/2.4.6#0162f1ea91994145cf9e8428f6474e19",
+    "ref": "expat/2.4.8#74de5449bbfeb85d25a22bb2feddc679",
     "context": "build"
    },
    "119": {

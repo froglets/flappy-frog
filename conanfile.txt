@@ -11,6 +11,7 @@ catch2/2.13.7
 
 # Overrides
 zlib/1.2.12
+libxml2/2.9.13
 
 [generators]
 CMakeToolchain
