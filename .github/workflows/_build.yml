@@ -116,7 +116,7 @@ jobs:
         run: |
           cd build
           conan info --lockfile=lockfile.json ../${{ inputs.conanfile }} --json=project.json
-          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing
+          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing --update
           conan remove "*" --builds --force
           conan remove "*" --src --force
 
