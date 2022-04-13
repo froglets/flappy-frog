@@ -125,7 +125,7 @@
     "context": "host"
    },
    "13": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "14"
     ],
@@ -204,7 +204,7 @@
     "context": "host"
    },
    "24": {
-    "ref": "xkbcommon/1.4.0#e0e0f2a0552b1bf3fa54e4376108d499",
+    "ref": "xkbcommon/1.4.0#8d6c39b178a19333e25075ba0e8e0adc",
     "requires": [
      "15",
      "21",
@@ -330,7 +330,7 @@
     "context": "build"
    },
    "44": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "45"
     ],
@@ -475,7 +475,7 @@
     "context": "build"
    },
    "65": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "66"
     ],
@@ -518,7 +518,7 @@
     "context": "build"
    },
    "72": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "73"
     ],
@@ -554,7 +554,7 @@
     "context": "build"
    },
    "78": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "79"
     ],
@@ -619,7 +619,7 @@
     "context": "build"
    },
    "89": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "90"
     ],
@@ -648,7 +648,7 @@
     "context": "build"
    },
    "94": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "95"
     ],
@@ -663,7 +663,7 @@
     "context": "build"
    },
    "97": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.61.2#10b8b908a17f66020699c5deb9327f3a",
     "requires": [
      "98"
     ],
@@ -723,7 +723,7 @@
     "context": "build"
    },
    "106": {
-    "ref": "autoconf/2.71#a7e681fccf619b8eaf7089a22b58b0a0",
+    "ref": "autoconf/2.71#5f54664379c48aa8bdebe61effc62629",
     "requires": [
      "107"
     ],
