@@ -114,7 +114,7 @@
     "context": "host"
    },
    "12": {
-    "ref": "automake/1.16.4#3a9b35656d43327144ac28fc553f0fdb",
+    "ref": "automake/1.16.4#66a957269a4d17cf0181df5b95123361",
     "requires": [
      "13"
     ],
@@ -142,7 +142,7 @@
     "context": "host"
    },
    "16": {
-    "ref": "openssl/1.1.1n#e4c3f950ad6dc8fdc569b32d4e0bbd9a",
+    "ref": "openssl/1.1.1n#2fd06475a9fcd0f93c6451c0cef16a67",
     "context": "host"
    },
    "17": {
@@ -322,7 +322,7 @@
     "context": "build"
    },
    "43": {
-    "ref": "automake/1.16.4#3a9b35656d43327144ac28fc553f0fdb",
+    "ref": "automake/1.16.4#66a957269a4d17cf0181df5b95123361",
     "requires": [
      "44"
     ],
@@ -467,7 +467,7 @@
     "context": "build"
    },
    "64": {
-    "ref": "automake/1.16.3#90f766699bd445a465f2963505f18a68",
+    "ref": "automake/1.16.3#70e94aad09432e1cb479c21bb7118b1f",
     "requires": [
      "65"
     ],
@@ -510,7 +510,7 @@
     "context": "build"
    },
    "71": {
-    "ref": "automake/1.16.3#90f766699bd445a465f2963505f18a68",
+    "ref": "automake/1.16.3#70e94aad09432e1cb479c21bb7118b1f",
     "requires": [
      "72"
     ],
@@ -546,7 +546,7 @@
     "context": "build"
    },
    "77": {
-    "ref": "automake/1.16.3#90f766699bd445a465f2963505f18a68",
+    "ref": "automake/1.16.3#70e94aad09432e1cb479c21bb7118b1f",
     "requires": [
      "78"
     ],
@@ -640,7 +640,7 @@
     "context": "build"
    },
    "93": {
-    "ref": "automake/1.16.4#3a9b35656d43327144ac28fc553f0fdb",
+    "ref": "automake/1.16.4#66a957269a4d17cf0181df5b95123361",
     "requires": [
      "94"
     ],
@@ -715,7 +715,7 @@
     "context": "build"
    },
    "105": {
-    "ref": "automake/1.16.4#3a9b35656d43327144ac28fc553f0fdb",
+    "ref": "automake/1.16.4#66a957269a4d17cf0181df5b95123361",
     "requires": [
      "106"
     ],
@@ -762,7 +762,7 @@
     "context": "build"
    },
    "113": {
-    "ref": "wayland/1.20.0#16d58f56bc1609420e813b64882cbb89",
+    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
     "requires": [
      "114",
      "115",
