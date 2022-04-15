@@ -133,7 +133,7 @@ jobs:
       - name: Build the project
         run: |
           cd build
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
+          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
           make
 
       - name: Run tests
