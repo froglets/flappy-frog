@@ -5,7 +5,7 @@ on: workflow_dispatch
 
 jobs:
   cmakelists-version:
-    uses: jgsogo/template-cpp-project/.github/workflows/_parse_version.yml@master
+    uses: froglets/template-cpp-project/.github/workflows/_parse_version.yml@master
     with:
       github_sha: master
 
@@ -25,7 +25,7 @@ jobs:
           fi
 
   ci-release:
-    uses: jgsogo/flappy-frog/.github/workflows/_build.yml@master
+    uses: froglets/flappy-frog/.github/workflows/_build.yml@master
     needs:
       - release-available  # Only run tests if version is available
       - cmakelists-version  # Needed to access dependent variable

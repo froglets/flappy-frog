@@ -1,4 +1,4 @@
-[![Build and tests](https://github.com/jgsogo/flappy-frog/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/jgsogo/flappy-frog/actions/workflows/ci.yml)
+[![Build and tests](https://github.com/froglets/flappy-frog/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/froglets/flappy-frog/actions/workflows/ci.yml)
 
 
 ## Setup environment
@@ -10,16 +10,11 @@ pip install conan
 
 ## Build and run locally
 
+> Note.- See [docs/building.md](docs/building.md) for more detailed instructions
+
 ```
 mkdir cmake-build-xxxx && cd cmake-build-xxxx
-```
-
-```
-conan lock create --profile:host=../.conan/profiles/release --profile:build=default --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=flappy-frog --version=0.1.0 ../conanfile.txt --build --update
-```
-
-```
-conan install --lockfile=lockfile.json ../conanfile.txt --build=missing
+conan install .. <your-profile>
 ```
 
 Use your preferred IDE or tool to build, debug and develop the project, typically:
@@ -34,10 +29,4 @@ And enjoy
 
 ```
 ./install/bin/mygame
-```
-
-## Update dependencies
-
-```
-conan lock create --name=flappy-frog --version=0.1.0 --base --lockfile-out lockfile.json --build --profile:host=.conan/profiles/release --profile:build=default conanfile.txt
 ```
