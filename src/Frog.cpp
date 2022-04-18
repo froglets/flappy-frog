@@ -37,7 +37,7 @@ Frog::Frog(const b2Vec2& position, const World& world)
 }
 
 void Frog::impulse() {
-    _body->ApplyForce(b2Vec2(0,100.0), _body->GetPosition(), true);
+    _body->ApplyForce(b2Vec2(0,50.0), _body->GetPosition(), true);
 }
 
 SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) {
@@ -67,7 +67,7 @@ void Frog::render(SDL_Renderer *renderer, float color) {
         _texture = initTexture("frog.png", renderer);
     }
     else {
-        SDL_RenderCopyEx(renderer, _texture, NULL, &frogRect, color, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(renderer, _texture, NULL, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
     }
     
     //SDL_RenderFillRect( renderer, &frogRect );
