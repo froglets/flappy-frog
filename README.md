@@ -4,7 +4,8 @@
 ## Setup environment
 
 Install Conan (preferably in a virtual environment)
-```
+
+```sh
 pip install conan
 ```
 
@@ -12,14 +13,15 @@ pip install conan
 
 > Note.- See [docs/building.md](docs/building.md) for more detailed instructions
 
-```
-mkdir cmake-build-xxxx && cd cmake-build-xxxx
-conan install .. <your-profile>
+```sh
+# using release as build type, it should match your default profile
+mkdir cmake-build-release && cd cmake-build-release
+conan install ..
 ```
 
 Use your preferred IDE or tool to build, debug and develop the project, typically:
 
-```
+```sh
 cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
 cmake --build .
 cmake --install .
@@ -27,6 +29,6 @@ cmake --install .
 
 And enjoy
 
-```
+```sh
 ./install/bin/mygame
 ```
