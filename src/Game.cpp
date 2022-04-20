@@ -104,7 +104,7 @@ int Game::loop() {
         }
 
         //Clear screen
-        SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0 );
+        SDL_SetRenderDrawColor( renderer, 120, 120, 230, 0 );
         SDL_RenderClear( renderer );
 
         b2Vec2 frog_screen_position = world2screen(frog->getPosition());

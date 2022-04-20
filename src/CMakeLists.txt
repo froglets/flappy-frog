@@ -11,7 +11,10 @@ find_package(tinkerforge-bindings REQUIRED CONFIG)
 add_executable(mygame main.cpp
                       Frog.cpp
                       Game.cpp
-                      World.cpp)
+                      World.cpp
+                      Frog.hpp
+                      Game.hpp
+                      World.hpp)
 target_include_directories(mygame PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
