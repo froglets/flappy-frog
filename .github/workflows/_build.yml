@@ -7,7 +7,7 @@ on:
       docker_image:
         type: string
         required: false
-        default: conanio/gcc11-ubuntu16.04:1.46.2
+        default: conanio/gcc11-ubuntu16.04:1.47.0
       library_name:
         type: string
         required: true
