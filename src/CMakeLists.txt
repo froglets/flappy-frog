@@ -10,9 +10,11 @@ find_package(tinkerforge-bindings REQUIRED CONFIG)
 
 add_executable(mygame main.cpp
                       Frog.cpp
+                      Pipe.cpp
                       Game.cpp
                       World.cpp
                       Frog.hpp
+                      Pipe.hpp
                       Game.hpp
                       World.hpp)
 target_include_directories(mygame PRIVATE include)
@@ -34,4 +36,12 @@ add_custom_command(TARGET mygame POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/../assets/frog.png
         ${CMAKE_INSTALL_PREFIX}/bin/frog.png
+
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/pipe.png
+        $<TARGET_FILE_DIR:mygame>
+
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/pipe.png
+        ${CMAKE_INSTALL_PREFIX}/bin/pipe.png
         )

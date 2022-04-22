@@ -1,4 +1,4 @@
-#include "Frog.hpp"
+#include "Pipe.hpp"
 #include "World.hpp"
 #include "Game.hpp"
 #include <iostream>
@@ -6,7 +6,7 @@
 
 
 
-Frog::Frog(const b2Vec2& position, const World& world)
+Pipe::Pipe(const b2Vec2& position, const World& world)
 {
     // Create a dynamic body
     b2BodyDef bodyDef;
@@ -19,9 +19,9 @@ Frog::Frog(const b2Vec2& position, const World& world)
     b2FixtureDef fixtureDef;
     // create and attach a polygon shape using a fixture definition. First we create a box shape:
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(frog_dimensions.x,
-                        frog_dimensions.y,
-                        b2Vec2(frog_dimensions.x/2.0, frog_dimensions.y/2.0), 0.0);
+    dynamicBox.SetAsBox(pipe_dimensions.x,
+                        pipe_dimensions.y,
+                        b2Vec2(pipe_dimensions.x/2.0, pipe_dimensions.y/2.0), 0.0);
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = _density;
     fixtureDef.friction = _friction;
@@ -30,19 +30,13 @@ Frog::Frog(const b2Vec2& position, const World& world)
     // You can add as many fixtures as you like to a body. Each one contributes to the total mass.
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
-
-    b2Vec2 a = Game::world2screen(frog_dimensions);
-    b2Vec2 b = Game::world2screen(b2Vec2(0,0));
-    b2Vec2 dim = b - a;
-    frog_dimensions_world = b2Vec2(dim.x, dim.y);
-    
 }
 
-void Frog::impulse() {
+void Pipe::impulse() {
     _body->SetLinearVelocity(b2Vec2(0, _speed));
 }
 
-SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) {
+SDL_Texture* Pipe::initTexture(const std::string& name, SDL_Renderer *renderer) {
     SDL_Surface* tmp_image;
     tmp_image = IMG_Load(name.c_str());
     if(!tmp_image) {
@@ -54,27 +48,28 @@ SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) 
     return texture;
 }
 
-void Frog::render(SDL_Renderer *renderer, float color) {
+void Pipe::render(SDL_Renderer *renderer, float color) {
     //Render filled quad
 
 
-    b2Vec2 frog_world_position = getPosition();
-    b2Vec2 frog_screen_position = Game::world2screen(frog_world_position);
+    b2Vec2 pipe_world_position = getPosition();
+    std::cout << pipe_world_position.x << "," << pipe_world_position.y << std::endl;
+    b2Vec2 pipe_screen_position = Game::world2screen(pipe_world_position);
+    SDL_Rect pipeRect = { static_cast<int>(pipe_screen_position.x-Game::SCALEX*pipe_dimensions.x/2.0),
+                          static_cast<int>(pipe_screen_position.y-Game::SCALEY*pipe_dimensions.y/2.0),
+                          static_cast<int>(Game::SCALEX*pipe_dimensions.x),
+                          static_cast<int>(Game::SCALEY*pipe_dimensions.y)};
 
-    SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x-Game::SCALEX*frog_dimensions.x/2.0),
-                          static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y/2.0),
-                          static_cast<int>(Game::SCALEX*frog_dimensions.x),
-                          static_cast<int>(Game::SCALEY*frog_dimensions.y)};
     if(!_texture) {
-        _texture = initTexture("frog.png", renderer);
+        _texture = initTexture("pipe.png", renderer);
     }
     else {
-        SDL_RenderCopyEx(renderer, _texture, NULL, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(renderer, _texture, NULL, &pipeRect, 0.0, NULL, SDL_FLIP_NONE);
     }
     
-    //SDL_RenderFillRect( renderer, &frogRect );
+    //SDL_RenderFillRect( renderer, &pipeRect );
 }
 
-void Frog::update(float delta) {
+void Pipe::update(float delta) {
     _timeAlive += delta;
 }
