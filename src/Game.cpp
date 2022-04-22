@@ -78,7 +78,7 @@ int Game::loop() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_DisplayMode DM;
     SDL_GetCurrentDisplayMode(0, &DM);
-    SDL_Window *window = SDL_CreateWindow("Basic Game Example",
+    SDL_Window *window = SDL_CreateWindow("Flappy Frog",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
