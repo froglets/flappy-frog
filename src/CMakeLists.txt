@@ -28,20 +28,15 @@ install(TARGETS mygame
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
 
-add_custom_command(TARGET mygame POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/frog.png
-        $<TARGET_FILE_DIR:mygame>
+file(GLOB ASSETS "${CMAKE_CURRENT_SOURCE_DIR}/../assets/*.png")
+     
+foreach(asset ${ASSETS})
+        add_custom_command(TARGET mygame POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                ${asset}
+                $<TARGET_FILE_DIR:mygame>
 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/frog.png
-        ${CMAKE_INSTALL_PREFIX}/bin/frog.png
-
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/pipe.png
-        $<TARGET_FILE_DIR:mygame>
-
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/../assets/pipe.png
-        ${CMAKE_INSTALL_PREFIX}/bin/pipe.png
-        )
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                ${asset}
+                ${CMAKE_INSTALL_PREFIX}/bin)
+endforeach(asset)
