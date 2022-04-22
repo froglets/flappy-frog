@@ -19,21 +19,13 @@ Pipe::Pipe(const b2Vec2& position, const World& world)
     b2FixtureDef fixtureDef;
     // create and attach a polygon shape using a fixture definition. First we create a box shape:
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(pipe_dimensions.x,
-                        pipe_dimensions.y,
+    dynamicBox.SetAsBox(pipe_dimensions.x/2.0,
+                        pipe_dimensions.y/2.0,
                         b2Vec2(pipe_dimensions.x/2.0, pipe_dimensions.y/2.0), 0.0);
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = _density;
-    fixtureDef.friction = _friction;
-    fixtureDef.restitution = _restitution;
-    // Using the fixture definition we can now create the fixture. This automatically updates the mass of the body.
-    // You can add as many fixtures as you like to a body. Each one contributes to the total mass.
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
-}
-
-void Pipe::impulse() {
-    _body->SetLinearVelocity(b2Vec2(0, _speed));
+    _body->SetLinearVelocity(b2Vec2(-2.0,0.0));
 }
 
 SDL_Texture* Pipe::initTexture(const std::string& name, SDL_Renderer *renderer) {
@@ -48,15 +40,21 @@ SDL_Texture* Pipe::initTexture(const std::string& name, SDL_Renderer *renderer) 
     return texture;
 }
 
-void Pipe::render(SDL_Renderer *renderer, float color) {
+void Pipe::update(float delta) {
+    if (_body->GetPosition().x<-pipe_dimensions.x) {
+        _body->SetTransform(b2Vec2(Game::WORLD_WIDTH+pipe_dimensions.x,0),0.0);
+    }
+}
+
+void Pipe::render(SDL_Renderer *renderer) {
     //Render filled quad
 
 
     b2Vec2 pipe_world_position = getPosition();
     std::cout << pipe_world_position.x << "," << pipe_world_position.y << std::endl;
     b2Vec2 pipe_screen_position = Game::world2screen(pipe_world_position);
-    SDL_Rect pipeRect = { static_cast<int>(pipe_screen_position.x-Game::SCALEX*pipe_dimensions.x/2.0),
-                          static_cast<int>(pipe_screen_position.y-Game::SCALEY*pipe_dimensions.y/2.0),
+    SDL_Rect pipeRect = { static_cast<int>(pipe_screen_position.x),
+                          static_cast<int>(pipe_screen_position.y-Game::SCALEY*pipe_dimensions.y),
                           static_cast<int>(Game::SCALEX*pipe_dimensions.x),
                           static_cast<int>(Game::SCALEY*pipe_dimensions.y)};
 
@@ -68,8 +66,4 @@ void Pipe::render(SDL_Renderer *renderer, float color) {
     }
     
     //SDL_RenderFillRect( renderer, &pipeRect );
-}
-
-void Pipe::update(float delta) {
-    _timeAlive += delta;
 }

@@ -48,8 +48,8 @@ public:
     static const b2Vec2& screen2world(const b2Vec2&);
     static const b2Vec2& world2screen(const b2Vec2&);
 
-    const b2Vec2 initFrogPos{WORLD_WIDTH/2.0,WORLD_HEIGHT/2.0};
-    const b2Vec2 initPipePos{WORLD_WIDTH - WORLD_WIDTH/4.0,WORLD_HEIGHT/2.0};
+    const b2Vec2 initFrogPos{WORLD_WIDTH/2.0,0.0};
+    const b2Vec2 initPipePos{2*WORLD_WIDTH,0.0};
 
 private:
     World world{};

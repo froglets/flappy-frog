@@ -20,15 +20,10 @@ public:
     void impulse();
     b2Vec2 getPosition() const {return _body->GetPosition();};
     const b2Body* getBody() {return _body;};
-    void render(SDL_Renderer *renderer, float color);
+    void render(SDL_Renderer *renderer);
     SDL_Texture* initTexture(const std::string& name, SDL_Renderer *renderer);
 private:
-    const float _density{10.00f};
-    const float _friction{0.01f};
-    const float _restitution{0.5};
-    const float _speed{6.0};
     const b2Vec2 pipe_dimensions{0.8, 1.7};
-    float _timeAlive {0};
     b2Body* _body;
     SDL_Texture* _texture{nullptr};
 };

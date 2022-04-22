@@ -116,13 +116,14 @@ int Game::loop() {
         if (connection)
             rgb_led_button_set_color(&rlb, 200, color, 0);
 
-        frog->render(renderer, color);
-        pipe->render(renderer, color);
+        frog->render(renderer);
+        pipe->render(renderer);
 
         SDL_RenderPresent( renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
         world.update(elapsedTime);
+        pipe->update(elapsedTime);
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
