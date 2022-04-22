@@ -38,15 +38,15 @@ void Game::addConnection(Connection conn) {
 
 const b2Vec2& Game::screen2world(const b2Vec2& screen_point) {
   static b2Vec2 world_point;
-  world_point.x = screen_point.x/(float)PIX2METR;
-  world_point.y = SCREEN_HEIGHT/(float)PIX2METR - screen_point.y/(float)PIX2METR;
+  world_point.x = screen_point.x/(float)(SCREEN_WIDTH/WORLD_WIDTH);
+  world_point.y = SCREEN_HEIGHT/(float)(SCREEN_HEIGHT/WORLD_HEIGHT) - screen_point.y/(float)(SCREEN_HEIGHT/WORLD_HEIGHT);
   return world_point;
 }
 
 const b2Vec2& Game::world2screen(const b2Vec2& world_point) {
   static b2Vec2 screen_point;
-  screen_point.x = world_point.x*(float)PIX2METR;
-  screen_point.y = (SCREEN_HEIGHT - world_point.y*(float)PIX2METR);
+  screen_point.x = world_point.x*(float)(SCREEN_WIDTH/WORLD_WIDTH);
+  screen_point.y = (SCREEN_HEIGHT - world_point.y*(float)(SCREEN_HEIGHT/WORLD_HEIGHT));
   return screen_point;
 }
 
@@ -78,7 +78,7 @@ int Game::loop() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_DisplayMode DM;
     SDL_GetCurrentDisplayMode(0, &DM);
-    SDL_Window *window = SDL_CreateWindow("Basic Game Example",
+    SDL_Window *window = SDL_CreateWindow("Flappy Frog",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
@@ -116,12 +116,14 @@ int Game::loop() {
         if (connection)
             rgb_led_button_set_color(&rlb, 200, color, 0);
 
-        frog->render(renderer, color);
+        frog->render(renderer);
+        pipe->render(renderer);
 
         SDL_RenderPresent( renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
         world.update(elapsedTime);
+        pipe->update(elapsedTime);
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

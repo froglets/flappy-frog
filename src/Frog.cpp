@@ -19,8 +19,9 @@ Frog::Frog(const b2Vec2& position, const World& world)
     b2FixtureDef fixtureDef;
     // create and attach a polygon shape using a fixture definition. First we create a box shape:
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(frog_dimensions.x,
-                        frog_dimensions.y);
+    dynamicBox.SetAsBox(frog_dimensions.x/2.0,
+                        frog_dimensions.y/2.0,
+                        b2Vec2(frog_dimensions.x/2.0, frog_dimensions.y/2.0), 0.0);
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = _density;
     fixtureDef.friction = _friction;
@@ -28,16 +29,11 @@ Frog::Frog(const b2Vec2& position, const World& world)
     // Using the fixture definition we can now create the fixture. This automatically updates the mass of the body.
     // You can add as many fixtures as you like to a body. Each one contributes to the total mass.
     _body->CreateFixture(&fixtureDef);
-
-    b2Vec2 a = Game::world2screen(frog_dimensions);
-    b2Vec2 b = Game::world2screen(b2Vec2(0,0));
-    b2Vec2 dim = b - a;
-    frog_dimensions_world = b2Vec2(dim.x, dim.y);
-    
+    _body->SetFixedRotation(true);
 }
 
 void Frog::impulse() {
-    _body->ApplyForce(b2Vec2(0,50.0), _body->GetPosition(), true);
+    _body->SetLinearVelocity(b2Vec2(0, _speed));
 }
 
 SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) {
@@ -52,17 +48,17 @@ SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) 
     return texture;
 }
 
-void Frog::render(SDL_Renderer *renderer, float color) {
+void Frog::render(SDL_Renderer *renderer) {
     //Render filled quad
 
 
     b2Vec2 frog_world_position = getPosition();
     b2Vec2 frog_screen_position = Game::world2screen(frog_world_position);
-    SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
-                          static_cast<int>(frog_screen_position.y),
-                          static_cast<int>(fabs(frog_dimensions_world.x)),
-                          static_cast<int>(fabs(frog_dimensions_world.y))};
 
+    SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
+                          static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
+                          static_cast<int>(Game::SCALEX*frog_dimensions.x),
+                          static_cast<int>(Game::SCALEY*frog_dimensions.y)};
     if(!_texture) {
         _texture = initTexture("frog.png", renderer);
     }
