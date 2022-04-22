@@ -25,7 +25,7 @@ Pipe::Pipe(const b2Vec2& position, const World& world)
     fixtureDef.shape = &dynamicBox;
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
-    _body->SetLinearVelocity(b2Vec2(-2.0,0.0));
+    _body->SetLinearVelocity(b2Vec2(-2.5,0.0));
 }
 
 SDL_Texture* Pipe::initTexture(const std::string& name, SDL_Renderer *renderer) {
