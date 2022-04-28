@@ -16,17 +16,27 @@ add_executable(mygame main.cpp
                       Frog.hpp
                       Pipe.hpp
                       Game.hpp
-                      World.hpp)
+                      World.hpp
+                      Platform.hpp
+                      LaunchScreen.storyboard)
+
 target_include_directories(mygame PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
-target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image tinkerforge::bindings)
+target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image tinkerforge::bindings "-framework CoreServices -framework ImageIO")
+
+if(APPLE)
+        set(MACOSX_BUNDLE_SHORT_VERSION_STRING 1.0)
+        set(MACOSX_BUNDLE_BUNDLE_VERSION 1.0)
+        set(MACOSX_BUNDLE_GUI_IDENTIFIER froglets.flappyfrog)
+endif(APPLE)
 
 install(TARGETS mygame
         PUBLIC_HEADER DESTINATION include
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
+        ARCHIVE DESTINATION lib
+        BUNDLE DESTINATION bin)
 
 file(GLOB ASSETS "${CMAKE_CURRENT_SOURCE_DIR}/../assets/*.png")
      

@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "Platform.hpp"
 
 #include <iomanip>
 #include <iostream>
@@ -30,6 +31,39 @@ float remap(float value, float in_min, float in_max, float out_min, float out_ma
     if (result < out_min)
         return out_min;
     return result;
+}
+
+int Game::SCREEN_WIDTH = 640;
+int Game::SCREEN_HEIGHT = 480;
+float Game::WORLD_WIDTH = 6.4;
+float Game::WORLD_HEIGHT = 4.8;
+float Game::SCALEX = Game::SCREEN_WIDTH/Game::WORLD_WIDTH;
+float Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
+
+Game::Game() {
+    initFrogPos = b2Vec2(WORLD_WIDTH/3.0,0.0);
+    initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
+
+    SDL_Init(SDL_INIT_EVERYTHING);
+
+    #ifdef IS_IOS
+        uint32_t displayWidth{0};
+        uint32_t displayHeight{0};
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+        displayWidth = static_cast<uint32_t>(displayMode.w);
+        displayHeight = static_cast<uint32_t>(displayMode.h);
+        Game::SCREEN_WIDTH = displayWidth;
+        Game::SCREEN_HEIGHT = displayHeight;
+        Game::WORLD_WIDTH = Game::SCREEN_WIDTH/100.0;
+        Game::WORLD_HEIGHT = Game::SCREEN_HEIGHT/100.0;
+        Game::SCALEX = Game::SCREEN_WIDTH/Game::WORLD_WIDTH;
+        Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
+    #endif
+
+    frog = std::make_unique<Frog>(initFrogPos, world);
+    pipe = std::make_unique<Pipe>(initPipePos, world);
+
 }
 
 void Game::addConnection(Connection conn) {
@@ -75,9 +109,6 @@ int Game::connect() {
 }
 
 int Game::loop() {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_DisplayMode DM;
-    SDL_GetCurrentDisplayMode(0, &DM);
     SDL_Window *window = SDL_CreateWindow("Flappy Frog",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
