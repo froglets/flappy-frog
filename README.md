@@ -33,7 +33,7 @@ And enjoy
 ./install/bin/mygame
 ```
 
-## Build for iOS
+## Build for iOS/iOS Simulator
 
 ```sh
 # using release as build type, it should match your default profile
