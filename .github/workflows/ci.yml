@@ -24,7 +24,6 @@ jobs:
       github_sha: ${{ github.sha }}
       profile_host: release
       profile_build: release
-      platform: ubuntu-latest
 
   ci-ios:
     needs:
@@ -36,4 +35,3 @@ jobs:
       github_sha: ${{ github.sha }}
       profile_host: ios_simulator_release
       profile_build: release
-      platform: macos-latest
