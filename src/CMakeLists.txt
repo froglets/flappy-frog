@@ -13,6 +13,7 @@ if(APPLE)
         set(MACOSX_BUNDLE_BUNDLE_VERSION 1.0)
         set(MACOSX_BUNDLE_GUI_IDENTIFIER froglets.flappyfrog)
         set(ADDITIONAL_PROJECT_FILES ../ios/LaunchScreen.storyboard)
+        set(ADDITIONAL_DEPS "-framework CoreServices -framework ImageIO")
 endif(APPLE)
 
 add_executable(mygame main.cpp
@@ -30,7 +31,7 @@ add_executable(mygame main.cpp
 target_include_directories(mygame PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
-target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image tinkerforge::bindings "-framework CoreServices -framework ImageIO")
+target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image tinkerforge::bindings ${ADDITIONAL_DEPS})
 
 
 install(TARGETS mygame
