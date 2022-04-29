@@ -53,6 +53,7 @@ defaults:
   run:
     working-directory: /home/conan/library
 
+jobs:
   build_and_test_ios:
     runs-on: macos-latests
     container:
