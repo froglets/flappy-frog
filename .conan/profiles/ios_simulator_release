@@ -1,4 +1,4 @@
-include(default)
+include(release)
 [settings]
 os=iOS
 os.sdk=iphonesimulator

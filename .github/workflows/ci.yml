@@ -15,6 +15,9 @@ jobs:
       github_sha: ${{ github.sha }}
 
   ci-release:
+    runs-on: ubuntu-latest
+    container:
+      image: conanio/gcc11-ubuntu16.04:1.46.2
     needs:
       cmakelists-version
     uses: froglets/flappy-frog/.github/workflows/_build.yml@master
@@ -22,4 +25,17 @@ jobs:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
-      profile: release
+      profile_host: release
+      profile_build: release
+
+  ci-ios:
+    runs-on: macos-latest
+    needs:
+      cmakelists-version
+    uses: froglets/flappy-frog/.github/workflows/_build.yml@master
+    with:
+      library_name: ${{ github.event.repository.name }}
+      library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
+      github_sha: ${{ github.sha }}
+      profile_host: ios_simulator_release
+      profile_build: release

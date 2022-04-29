@@ -4,10 +4,6 @@ name: "(chunk) Build C++ project"
 on:
   workflow_call:
     inputs:
-      docker_image:
-        type: string
-        required: false
-        default: conanio/gcc11-ubuntu16.04:1.46.2
       library_name:
         type: string
         required: true
@@ -23,10 +19,14 @@ on:
         type: string
         required: false
         default: ""
-      profile:
+      profile_build:
         type: string
         required: true
-        description: "Profile to use in this run"
+        description: "Profile build to use in this run"
+      profile_host:
+        type: string
+        required: true
+        description: "Profile host to use in this run"
       run_tests:
         type: string
         required: false
@@ -51,9 +51,6 @@ defaults:
 
 jobs:
   build_and_test:
-    runs-on: ubuntu-latest
-    container:
-      image: ${{ inputs.docker_image }}
     env:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
@@ -100,7 +97,7 @@ jobs:
       - name: Compute lockfile for current configuration
         run: |
           mkdir build && cd build
-          conan lock create --profile:host=${{ inputs.profile }} --profile:build=default --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=${{ inputs.library_name }} --version=${{ inputs.library_version }} ../${{ inputs.conanfile }} --build --update
+          conan lock create --profile:host=${{ inputs.profile_host }} --profile:build=${{ inputs.profile_build }} --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=${{ inputs.library_name }} --version=${{ inputs.library_version }} ../${{ inputs.conanfile }} --build --update
 
       - name: Build the build-requires
         # This is needed because of https://github.com/conan-io/conan/issues/10345, but
@@ -109,7 +106,7 @@ jobs:
           jq '.graph_lock.nodes[] | select( .context=="build") | .ref' build/lockfile.json | while read -r reference ; do
               ref=$(echo $reference | sed 's/#/@#/g')
               ref_unquoted=$(echo $ref | sed 's/\"//g')
-              conan install $ref_unquoted --build=missing --profile:host=default --profile:build=default
+              conan install $ref_unquoted --build=missing --profile:host=${{ inputs.profile_host }} --profile:build=${{ inputs.profile_build }}
           done
 
       - name: Build dependencies
@@ -131,10 +128,16 @@ jobs:
           done
 
       - name: Build the project
+        if: matrix.os == 'ubuntu-latest'
         run: |
           cd build
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
+          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
           make
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd build
+          cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }})
+          cmake --build . --config $(conan profile get settings.build_type ${{ inputs.profile_host }}) --target mygame
 
       - name: Run tests
         if: ${{ inputs.run_tests }}
