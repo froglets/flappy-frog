@@ -10,28 +10,16 @@ on:
 
 jobs:
   cmakelists-version:
-    uses: froglets/flappy-frog/.github/workflows/_parse_version.yml@add_ios_support
+    uses: froglets/flappy-frog/.github/workflows/_parse_version.yml@master
     with:
       github_sha: ${{ github.sha }}
 
   ci-release:
     needs:
       cmakelists-version
-    uses: froglets/flappy-frog/.github/workflows/_build_linux.yml@add_ios_support
+    uses: froglets/flappy-frog/.github/workflows/_build.yml@master
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
-      profile_host: release
-      profile_build: release
-
-  ci-ios:
-    needs:
-      cmakelists-version
-    uses: froglets/flappy-frog/.github/workflows/_build_ios.yml@add_ios_support
-    with:
-      library_name: ${{ github.event.repository.name }}
-      library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
-      github_sha: ${{ github.sha }}
-      profile_host: ios_simulator_release
-      profile_build: release
+      profile: release

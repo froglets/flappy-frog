@@ -23,14 +23,10 @@ on:
         type: string
         required: false
         default: ""
-      profile_build:
+      profile:
         type: string
         required: true
-        description: "Profile build to use in this run"
-      profile_host:
-        type: string
-        required: true
-        description: "Profile host to use in this run"
+        description: "Profile to use in this run"
       run_tests:
         type: string
         required: false
@@ -54,10 +50,10 @@ defaults:
     working-directory: /home/conan/library
 
 jobs:
-  build_and_test_linux:
+  build_and_test:
     runs-on: ubuntu-latest
     container:
-      image: ${{ inputs.docker_image }}    
+      image: ${{ inputs.docker_image }}
     env:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
@@ -104,7 +100,7 @@ jobs:
       - name: Compute lockfile for current configuration
         run: |
           mkdir build && cd build
-          conan lock create --profile:host=${{ inputs.profile_host }} --profile:build=${{ inputs.profile_build }} --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=${{ inputs.library_name }} --version=${{ inputs.library_version }} ../${{ inputs.conanfile }} --build --update
+          conan lock create --profile:host=${{ inputs.profile }} --profile:build=default --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=${{ inputs.library_name }} --version=${{ inputs.library_version }} ../${{ inputs.conanfile }} --build --update
 
       - name: Build the build-requires
         # This is needed because of https://github.com/conan-io/conan/issues/10345, but
@@ -113,7 +109,7 @@ jobs:
           jq '.graph_lock.nodes[] | select( .context=="build") | .ref' build/lockfile.json | while read -r reference ; do
               ref=$(echo $reference | sed 's/#/@#/g')
               ref_unquoted=$(echo $ref | sed 's/\"//g')
-              conan install $ref_unquoted --build=missing --profile:host=${{ inputs.profile_host }} --profile:build=${{ inputs.profile_build }}
+              conan install $ref_unquoted --build=missing --profile:host=default --profile:build=default
           done
 
       - name: Build dependencies
@@ -134,11 +130,10 @@ jobs:
             conan upload --confirm --parallel --all --remote remote-project $ref_usable
           done
 
-      - name: Build the project in Linux
-        if: runner.os == 'ubuntu-latest'
+      - name: Build the project
         run: |
           cd build
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
+          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
           make
 
       - name: Run tests
