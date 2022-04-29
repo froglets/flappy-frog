@@ -25,10 +25,6 @@ jobs:
       profile_host: release
       profile_build: release
       platform: ubuntu-latest
-      container_image: conanio/gcc11-ubuntu16.04:1.46.2
-    runs-on: ubuntu-latest
-    container:
-      image: conanio/gcc11-ubuntu16.04:1.46.2
 
   ci-ios:
     needs:
@@ -41,4 +37,3 @@ jobs:
       profile_host: ios_simulator_release
       profile_build: release
       platform: macos-latest
-    runs-on:  macos-latest
