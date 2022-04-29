@@ -4,9 +4,6 @@ name: "(chunk) Build C++ project"
 on:
   workflow_call:
     inputs:
-      platform:
-        type: string
-        required: true
       docker_image:
         type: string
         required: false
@@ -43,6 +40,9 @@ on:
         required: false
         default: conanfile.txt
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
+      platform:
+        type: string
+        required: true
     secrets:
       RT_TOKEN:
         required: false
