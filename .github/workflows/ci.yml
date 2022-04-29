@@ -22,8 +22,8 @@ jobs:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
-      profilehost: release
-      profilebuild: release
+      profile_host: release
+      profile_build: release
       platform: ubuntu-latest
 
   ci-ios:
@@ -34,6 +34,6 @@ jobs:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
-      profilehost: ios_simulator_release
-      profilebuild: release
+      profile_host: ios_simulator_release
+      profile_build: release
       platform: macos-latest

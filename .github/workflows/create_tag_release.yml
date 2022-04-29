@@ -33,8 +33,8 @@ jobs:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: master
-      profilehost: release
-      profilebuild: release
+      profile_host: release
+      profile_build: release
 
   create_release:
     needs:
