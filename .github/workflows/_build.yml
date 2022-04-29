@@ -58,9 +58,6 @@ defaults:
 
 jobs:
   build_and_test:
-    runs-on: ${{ inputs.platform }}    
-    container:
-      image: ${{ inputs.docker_image }}    
     env:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
