@@ -8,7 +8,7 @@ on:
         type: string
         required: false
         default: conanio/gcc11-ubuntu16.04:1.46.2
-     library_name:
+      library_name:
         type: string
         required: true
         description: "Name of the library. It should match name of the repository"
@@ -154,4 +154,3 @@ jobs:
         run: |
           cd build
           ${{ inputs.run_tests }}
-
