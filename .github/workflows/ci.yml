@@ -10,14 +10,14 @@ on:
 
 jobs:
   cmakelists-version:
-    uses: czoido/flappy-frog/.github/workflows/_parse_version.yml@add_ios_support
+    uses: flappy-frog/.github/workflows/_parse_version.yml@add_ios_support
     with:
       github_sha: ${{ github.sha }}
 
   ci-release:
     needs:
       cmakelists-version
-    uses: czoido/flappy-frog/.github/workflows/_build.yml@add_ios_support
+    uses: flappy-frog/.github/workflows/_build.yml@add_ios_support
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
@@ -29,7 +29,7 @@ jobs:
   ci-ios:
     needs:
       cmakelists-version
-    uses: czoido/flappy-frog/.github/workflows/_build.yml@add_ios_support
+    uses: flappy-frog/.github/workflows/_build.yml@add_ios_support
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
