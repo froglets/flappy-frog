@@ -26,8 +26,8 @@ private:
     const float _density{10.00f};
     const float _friction{0.0f};
     const float _restitution{0.0f};
-    const float _speed{6.0f};
-    const b2Vec2 frog_dimensions{0.84f, 0.78f};
+    const float _speed{4.0f};
+    const b2Vec2 frog_dimensions{0.65f*0.84f, 0.65f*0.78f};
     b2Vec2 frog_dimensions_world;
     float _timeAlive {0};
     b2Body* _body;

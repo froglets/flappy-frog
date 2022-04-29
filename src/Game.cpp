@@ -41,9 +41,6 @@ float Game::SCALEX = Game::SCREEN_WIDTH/Game::WORLD_WIDTH;
 float Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
 
 Game::Game() {
-    initFrogPos = b2Vec2(WORLD_WIDTH/3.0,0.0);
-    initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
-
     SDL_Init(SDL_INIT_EVERYTHING);
 
     #ifdef IS_IOS
@@ -61,9 +58,11 @@ Game::Game() {
         Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
     #endif
 
+    initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
+    initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
+
     frog = std::make_unique<Frog>(initFrogPos, world);
     pipe = std::make_unique<Pipe>(initPipePos, world);
-
 }
 
 void Game::addConnection(Connection conn) {
@@ -129,6 +128,10 @@ int Game::loop() {
                 quit = true;
             }
             else if (event.key.keysym.sym == SDLK_UP)
+            {
+                frog->impulse();
+            }
+            else if( event.type == SDL_FINGERDOWN )
             {
                 frog->impulse();
             }
