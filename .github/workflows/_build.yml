@@ -4,6 +4,10 @@ name: "(chunk) Build C++ project"
 on:
   workflow_call:
     inputs:
+      docker_image:
+        type: string
+        required: false
+        default: conanio/gcc11-ubuntu16.04:1.46.2
       library_name:
         type: string
         required: true
@@ -55,12 +59,13 @@ defaults:
 jobs:
   build_and_test:
     runs-on: ${{ inputs.platform }}    
+    container:
+      image: ${{ inputs.docker_image }}    
     env:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
       CONAN_PRINT_RUN_COMMANDS: 1
     steps:
-
       - name: Install jq
         working-directory: /home/conan
         run: |
