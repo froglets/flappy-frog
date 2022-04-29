@@ -4,7 +4,14 @@ name: "(chunk) Build C++ project"
 on:
   workflow_call:
     inputs:
-      library_name:
+      platform:
+        type: string
+        required: true
+      docker_image:
+        type: string
+        required: false
+        default: conanio/gcc11-ubuntu16.04:1.46.2
+     library_name:
         type: string
         required: true
         description: "Name of the library. It should match name of the repository"
@@ -51,6 +58,9 @@ defaults:
 
 jobs:
   build_and_test:
+    runs-on: ${{ inputs.platform }}    
+    container:
+      image: ${{ inputs.docker_image }}    
     env:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
@@ -128,12 +138,12 @@ jobs:
           done
 
       - name: Build the project
-        if: matrix.os == 'ubuntu-latest'
+        if: runner.os == 'ubuntu-latest'
         run: |
           cd build
           cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
           make
-        if: matrix.os == 'macos-latest'
+        if: runner.os == 'macos-latest'
         run: |
           cd build
           cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }})
