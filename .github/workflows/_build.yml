@@ -137,12 +137,14 @@ jobs:
             conan upload --confirm --parallel --all --remote remote-project $ref_usable
           done
 
-      - name: Build the project
+      - name: Build the project in Linux
         if: runner.os == 'ubuntu-latest'
         run: |
           cd build
           cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile_host }}) -DCMAKE_INSTALL_PREFIX:PATH=$(pwd)/install
           make
+
+      - name: Build the project in Macos for iOS
         if: runner.os == 'macos-latest'
         run: |
           cd build
