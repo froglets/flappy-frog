@@ -8,6 +8,13 @@ find_package(CLI11 REQUIRED CONFIG)
 find_package(fmt REQUIRED CONFIG)
 find_package(tinkerforge-bindings REQUIRED CONFIG)
 
+if(APPLE)
+        set(MACOSX_BUNDLE_SHORT_VERSION_STRING 1.0)
+        set(MACOSX_BUNDLE_BUNDLE_VERSION 1.0)
+        set(MACOSX_BUNDLE_GUI_IDENTIFIER froglets.flappyfrog)
+        set(ADDITIONAL_PROJECT_FILES ../ios/LaunchScreen.storyboard)
+endif(APPLE)
+
 add_executable(mygame main.cpp
                       Frog.cpp
                       Pipe.cpp
@@ -18,18 +25,13 @@ add_executable(mygame main.cpp
                       Game.hpp
                       World.hpp
                       Platform.hpp
-                      LaunchScreen.storyboard)
+                      ${ADDITIONAL_PROJECT_FILES})
 
 target_include_directories(mygame PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
 target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image tinkerforge::bindings "-framework CoreServices -framework ImageIO")
 
-if(APPLE)
-        set(MACOSX_BUNDLE_SHORT_VERSION_STRING 1.0)
-        set(MACOSX_BUNDLE_BUNDLE_VERSION 1.0)
-        set(MACOSX_BUNDLE_GUI_IDENTIFIER froglets.flappyfrog)
-endif(APPLE)
 
 install(TARGETS mygame
         PUBLIC_HEADER DESTINATION include

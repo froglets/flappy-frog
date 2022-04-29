@@ -32,3 +32,15 @@ And enjoy
 ```sh
 ./install/bin/mygame
 ```
+
+## Build for iOS
+
+```sh
+# using release as build type, it should match your default profile
+mkdir build-ios && cd build-ios
+conan install .. -s build_type=Release -pr:b=default -pr:h=../.conan/profiles/ios_simulator --build=missing
+conan install .. -s build_type=Debug -pr:b=default -pr:h=../.conan/profiles/ios_simulator --build=missing
+cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+```
+
+Open flappy-frog.xcodeproj and run the project in the simulator of your choice.
