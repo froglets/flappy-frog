@@ -25,6 +25,7 @@ jobs:
       profile_host: release
       profile_build: release
       platform: ubuntu-latest
+      container_image: conanio/gcc11-ubuntu16.04:1.46.2
 
   ci-ios:
     needs:
