@@ -2,3 +2,6 @@ include(default)
 
 [settings]
 build_type=Release
+
+[options]
+sdl_mixer:nativemidi=False

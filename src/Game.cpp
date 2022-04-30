@@ -9,6 +9,7 @@
 #include <fmt/core.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 
 // Callback function for button state changed callback
@@ -42,6 +43,11 @@ float Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
 
 Game::Game() {
     SDL_Init(SDL_INIT_EVERYTHING);
+
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+        std::cout << SDL_GetError() << std::endl;
+        return 0;
+    }
 
     #ifdef IS_IOS
         uint32_t displayWidth{0};
@@ -127,11 +133,7 @@ int Game::loop() {
             {
                 quit = true;
             }
-            else if (event.key.keysym.sym == SDLK_UP)
-            {
-                frog->impulse();
-            }
-            else if( event.type == SDL_FINGERDOWN )
+            else if (event.key.keysym.sym == SDLK_UP || event.type == SDL_FINGERDOWN)
             {
                 frog->impulse();
             }
@@ -161,6 +163,7 @@ int Game::loop() {
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_CloseAudio();
     SDL_Quit();
     return EXIT_SUCCESS;
 }
