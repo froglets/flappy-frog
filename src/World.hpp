@@ -13,7 +13,8 @@ class World {
     const b2Vec2 _gravity{0.0f, -10.0f};
 
     std::unique_ptr<b2World> _world{std::make_unique<b2World>(_gravity)};
-
+    void createFloor();
+    void createRoof();
 public:
 
     World();
