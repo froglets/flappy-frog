@@ -18,7 +18,7 @@ if(APPLE)
         set(MACOSX_BUNDLE_BUNDLE_VERSION 1.0)
         set(MACOSX_BUNDLE_GUI_IDENTIFIER froglets.flappyfrog)
         set(ADDITIONAL_PROJECT_FILES ../ios/LaunchScreen.storyboard)
-        set(ADDITIONAL_DEPS "-framework CoreServices -framework ImageIO")
+        set(ADDITIONAL_DEPS "${ADDITIONAL_DEPS} -framework CoreServices -framework ImageIO")
 endif(APPLE)
 
 add_executable(mygame main.cpp
