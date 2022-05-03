@@ -5,9 +5,13 @@ find_package(box2d REQUIRED CONFIG)
 # FIXME: sdl_image conan package still not adding properties
 find_package(sdl_image REQUIRED CONFIG)
 find_package(SDL2_mixer REQUIRED CONFIG)
-find_package(CLI11 REQUIRED CONFIG)
 find_package(fmt REQUIRED CONFIG)
 find_package(tinkerforge-bindings REQUIRED CONFIG)
+
+if(NOT IOS)
+        find_package(CLI11 REQUIRED CONFIG)
+        set(ADDITIONAL_DEPS CLI11::CLI11)
+endif()
 
 if(APPLE)
         set(MACOSX_BUNDLE_SHORT_VERSION_STRING 1.0)
@@ -29,10 +33,11 @@ add_executable(mygame main.cpp
                       Platform.hpp
                       ${ADDITIONAL_PROJECT_FILES})
 
+
 target_include_directories(mygame PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
-target_link_libraries(mygame CLI11::CLI11 fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings ${ADDITIONAL_DEPS})
+target_link_libraries(mygame fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings ${ADDITIONAL_DEPS})
 
 
 install(TARGETS mygame
