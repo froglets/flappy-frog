@@ -4,6 +4,3 @@ os=iOS
 os.sdk=iphonesimulator
 os.version=9.0
 arch=x86_64
-
-[options]
-sdl_mixer:nativemidi=False
