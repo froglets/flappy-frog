@@ -37,7 +37,9 @@ target_link_libraries(mygame fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl
 
 if(APPLE)
         target_link_libraries(mygame -framework CoreServices -framework ImageIO)
-else()
+endif()
+
+if(NOT IOS)
         target_link_libraries(mygame CLI11::CLI11)
 endif()
 
