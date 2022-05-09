@@ -17,7 +17,7 @@
     "context": "host"
    },
    "1": {
-    "ref": "sdl/2.0.20#427d90efcbe16537c4a53cf9bd1b00fe",
+    "ref": "sdl/2.0.20#381f75b6180b2ad425eee1159afb7eb9",
     "requires": [
      "2",
      "3",
@@ -241,19 +241,18 @@
     "context": "host"
    },
    "29": {
-    "ref": "sdl_image/2.0.5#2e14aeeb755cdf9b4a59b88ca82b9e36",
+    "ref": "sdl_image/2.0.5#929fed2274ca6e214a396a609a5f53f0",
     "requires": [
      "1",
      "30",
      "32",
      "36",
-     "35",
-     "22"
+     "35"
     ],
     "context": "host"
    },
    "30": {
-    "ref": "libtiff/4.3.0#6a7ec6a45636261798e28bb0707cea40",
+    "ref": "libtiff/4.3.0#20a6bf7cfc59b1d4121e3a27e620580d",
     "requires": [
      "22",
      "31",
@@ -270,7 +269,7 @@
     "context": "host"
    },
    "32": {
-    "ref": "libjpeg/9d#fecfbc9d98c2f98a226fbf22e2f265a0",
+    "ref": "libjpeg/9d#e7ebe28533c5824240393061a993e870",
     "context": "host"
    },
    "33": {
@@ -282,7 +281,7 @@
     "context": "host"
    },
    "35": {
-    "ref": "libwebp/1.2.1#d1de9e2f3fa728757ed10b3b32b20b1d",
+    "ref": "libwebp/1.2.2#2bc6e3f479964fdabfa968a44269dd43",
     "context": "host"
    },
    "36": {
@@ -368,14 +367,14 @@
     "context": "build"
    },
    "52": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "53"
     ],
     "context": "build"
    },
    "53": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "54"
     ],
@@ -386,7 +385,7 @@
     "context": "build"
    },
    "55": {
-    "ref": "bison/3.7.1#ad29e804e82c8b6d58765096676b5a5e",
+    "ref": "bison/3.7.1#43f41b53bc998bbfbd3839057478742a",
     "requires": [
      "56"
     ],
@@ -493,14 +492,14 @@
     "context": "build"
    },
    "68": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "69"
     ],
     "context": "build"
    },
    "69": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "70"
     ],
@@ -529,14 +528,14 @@
     "context": "build"
    },
    "74": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "75"
     ],
     "context": "build"
    },
    "75": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "76"
     ],
@@ -565,14 +564,14 @@
     "context": "build"
    },
    "80": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "81"
     ],
     "context": "build"
    },
    "81": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "82"
     ],
@@ -583,14 +582,14 @@
     "context": "build"
    },
    "83": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "84"
     ],
     "context": "build"
    },
    "84": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "85"
     ],
@@ -601,14 +600,14 @@
     "context": "build"
    },
    "86": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "87"
     ],
     "context": "build"
    },
    "87": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "88"
     ],
@@ -674,7 +673,7 @@
     "context": "build"
    },
    "99": {
-    "ref": "bison/3.7.6#617948f0c002e1ab9c22439c9e6a24ab",
+    "ref": "bison/3.7.6#de3449489624dbc45cfb8a868818def8",
     "requires": [
      "100"
     ],
@@ -734,14 +733,14 @@
     "context": "build"
    },
    "108": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "109"
     ],
     "context": "build"
    },
    "109": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "110"
     ],
@@ -756,7 +755,7 @@
     "context": "build"
    },
    "112": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "120"
     ],
@@ -809,7 +808,7 @@
     "context": "build"
    },
    "120": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "121"
     ],
@@ -820,14 +819,14 @@
     "context": "build"
    },
    "122": {
-    "ref": "pkgconf/1.7.4#204e46d3e4a8d9e30ec9ca70cd99526e",
+    "ref": "pkgconf/1.7.4#cef6c1423898afb2580e10022caf3c89",
     "build_requires": [
      "123"
     ],
     "context": "build"
    },
    "123": {
-    "ref": "meson/0.60.2#50fb2d56a172d0da2f4db88ead19449d",
+    "ref": "meson/0.62.1#f701e3781c8fb08ec0317e89bcbe5b4b",
     "requires": [
      "124"
     ],
