@@ -16,10 +16,20 @@ jobs:
 
   ci-release:
     needs:
-      cmakelists-version
+      - cmakelists-version
     uses: froglets/flappy-frog/.github/workflows/_build.yml@master
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
       profile: release
+
+  ci-macos-release:
+    needs:
+      - cmakelists-version
+    uses: froglets/flappy-frog/.github/workflows/_build_macos.yml@master
+    with:
+      library_name: ${{ github.event.repository.name }}
+      library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
+      github_sha: ${{ github.sha }}
+      profile: ios
