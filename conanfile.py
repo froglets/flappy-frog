@@ -26,7 +26,3 @@ class FlappyFrogRecipe(ConanFile):
 
         # Testing
         self.requires("catch2/2.13.7")
-
-        # Overrides
-        self.requires("zlib/1.2.12", override=True)
-        self.requires("libxml2/2.9.13", override=True)
