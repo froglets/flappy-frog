@@ -126,14 +126,14 @@ jobs:
             conan upload --confirm --parallel --all --remote sogo-project $ref_usable
           done
 
-      - name: Build the project
-        run: |
-          cd build
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
-          make
+      # - name: Build the project
+      #   run: |
+      #     cd build
+      #     cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
+      #     make
 
-      - name: Run tests
-        if: ${{ inputs.run_tests }}
-        run: |
-          cd build
-          ${{ inputs.run_tests }}
+      # - name: Run tests
+      #   if: ${{ inputs.run_tests }}
+      #   run: |
+      #     cd build
+      #     ${{ inputs.run_tests }}
