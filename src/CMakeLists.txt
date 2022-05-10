@@ -17,7 +17,7 @@ else()
         set(ADDITIONAL_PROJECT_FILES ../ios/LaunchScreen.storyboard)
 endif()
 
-add_executable(mygame main.cpp
+add_executable(flappy-frog main.cpp
                       Frog.cpp
                       Pipe.cpp
                       Game.cpp
@@ -30,20 +30,20 @@ add_executable(mygame main.cpp
                       ${ADDITIONAL_PROJECT_FILES})
 
 
-target_include_directories(mygame PRIVATE include)
+target_include_directories(flappy-frog PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
-target_link_libraries(mygame fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings)
+target_link_libraries(flappy-frog fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings)
 
 if(APPLE)
-        target_link_libraries(mygame -framework CoreServices -framework ImageIO)
+        target_link_libraries(flappy-frog -framework CoreServices -framework ImageIO)
 endif()
 
 if(NOT IOS)
-        target_link_libraries(mygame CLI11::CLI11)
+        target_link_libraries(flappy-frog CLI11::CLI11)
 endif()
 
-install(TARGETS mygame
+install(TARGETS flappy-frog
         PUBLIC_HEADER DESTINATION include
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
@@ -53,10 +53,10 @@ install(TARGETS mygame
 file(GLOB ASSETS "${CMAKE_CURRENT_SOURCE_DIR}/../assets/*.*")
      
 foreach(asset ${ASSETS})
-        add_custom_command(TARGET mygame POST_BUILD
+        add_custom_command(TARGET flappy-frog POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 ${asset}
-                $<TARGET_FILE_DIR:mygame>
+                $<TARGET_FILE_DIR:flappy-frog>
 
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 ${asset}
