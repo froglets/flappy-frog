@@ -36,7 +36,9 @@ target_include_directories(flappy-frog PRIVATE include)
 target_link_libraries(flappy-frog fmt::fmt box2d::box2d SDL2::SDL2main sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings)
 
 if(APPLE)
-        target_link_libraries(flappy-frog -framework CoreServices -framework ImageIO)
+        find_library(CORE_SERVICES_LIBRARY CoreServices )
+        find_library(IMAGEIO_LIBRARY ImageIO )
+        target_link_libraries(flappy-frog ${CORE_SERVICES_LIBRARY} ${IMAGEIO_LIBRARY})
 endif()
 
 if(NOT IOS)
