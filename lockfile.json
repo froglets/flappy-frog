@@ -9,9 +9,7 @@
      "38",
      "39",
      "40",
-     "41",
-     "22",
-     "21"
+     "41"
     ],
     "path": "conanfile.txt",
     "context": "host"
@@ -196,7 +194,7 @@
     "context": "host"
    },
    "22": {
-    "ref": "zlib/1.2.12#82202701ea360c0863f1db5008067122",
+    "ref": "zlib/1.2.12#bd533fb124387a214816ab72c8d1df28",
     "context": "host"
    },
    "23": {
@@ -762,7 +760,7 @@
     "context": "build"
    },
    "113": {
-    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
+    "ref": "wayland/1.20.0#8252e6c8344422aaf2ddc7f4146a5364",
     "requires": [
      "114",
      "115",
@@ -792,7 +790,7 @@
     "context": "build"
    },
    "116": {
-    "ref": "zlib/1.2.12#82202701ea360c0863f1db5008067122",
+    "ref": "zlib/1.2.12#bd533fb124387a214816ab72c8d1df28",
     "context": "build"
    },
    "117": {
