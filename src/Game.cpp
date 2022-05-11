@@ -8,15 +8,16 @@
 #include <fmt/core.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 
 // Callback function for button state changed callback
 void cb_button_state_changed(uint8_t state, void* user_data) {
-    Frog* frog = (Frog*)user_data;
+    b2Body* body = (b2Body*)user_data;
 
     if(state == RGB_LED_BUTTON_BUTTON_STATE_PRESSED) {
         printf("State: Pressed\n");
-        frog->impulse();
+        body->ApplyForce(b2Vec2(0,300.0), body->GetPosition(), true);
     } else if(state == RGB_LED_BUTTON_BUTTON_STATE_RELEASED) {
         printf("State: Released\n");
     }
@@ -30,6 +31,28 @@ float remap(float value, float in_min, float in_max, float out_min, float out_ma
     if (result < out_min)
         return out_min;
     return result;
+}
+
+int Game::SCREEN_WIDTH = 640;
+int Game::SCREEN_HEIGHT = 480;
+float Game::WORLD_WIDTH = 6.4;
+float Game::WORLD_HEIGHT = 4.8;
+float Game::SCALEX = Game::SCREEN_WIDTH/Game::WORLD_WIDTH;
+float Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
+
+Game::Game() {
+    SDL_Init(SDL_INIT_EVERYTHING);
+
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+        std::cout << SDL_GetError() << std::endl;
+        return 0;
+    }
+
+    initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
+    initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
+
+    frog = std::make_unique<Frog>(initFrogPos, world);
+    pipe = std::make_unique<Pipe>(initPipePos, world);
 }
 
 void Game::addConnection(Connection conn) {
@@ -69,15 +92,12 @@ int Game::connect() {
          rgb_led_button_register_callback(&rlb,
                                          RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
                                          (void (*)(void))cb_button_state_changed,
-                                         (void *)frog.get());
+                                         (void *)frog->getBody());
      }
     return 0;
 }
 
 int Game::loop() {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_DisplayMode DM;
-    SDL_GetCurrentDisplayMode(0, &DM);
     SDL_Window *window = SDL_CreateWindow("Flappy Frog",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -97,7 +117,7 @@ int Game::loop() {
             {
                 quit = true;
             }
-            else if (event.key.keysym.sym == SDLK_UP)
+            else if (event.key.keysym.sym == SDLK_UP || event.type == SDL_FINGERDOWN)
             {
                 frog->impulse();
             }
@@ -127,6 +147,7 @@ int Game::loop() {
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_CloseAudio();
     SDL_Quit();
     return EXIT_SUCCESS;
 }
