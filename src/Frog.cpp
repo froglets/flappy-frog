@@ -55,15 +55,20 @@ void Frog::render(SDL_Renderer *renderer) {
     b2Vec2 frog_world_position = getPosition();
     b2Vec2 frog_screen_position = Game::world2screen(frog_world_position);
 
+    // Animation
+    Uint32 ticks = SDL_GetTicks();
+    Uint32 seconds = ticks / 200;
+    Uint32 sprite = seconds % 2;
+    SDL_Rect srcrect = { sprite*40, 0, 40, 40 };
     SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),
                           static_cast<int>(Game::SCALEY*frog_dimensions.y)};
     if(!_texture) {
-        _texture = initTexture("frog.png", renderer);
+        _texture = initTexture("frog_sprite.png", renderer);
     }
     else {
-        SDL_RenderCopyEx(renderer, _texture, NULL, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
     }
     
     //SDL_RenderFillRect( renderer, &frogRect );
