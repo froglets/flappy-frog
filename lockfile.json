@@ -15,7 +15,7 @@
     "context": "host"
    },
    "1": {
-    "ref": "sdl/2.0.20#381f75b6180b2ad425eee1159afb7eb9",
+    "ref": "sdl/2.0.20#f2632d198f01cb41f153625d4dab60b9",
     "requires": [
      "2",
      "3",
@@ -164,7 +164,7 @@
     "context": "host"
    },
    "19": {
-    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
+    "ref": "wayland/1.20.0#8252e6c8344422aaf2ddc7f4146a5364",
     "requires": [
      "20",
      "21",
