@@ -34,7 +34,7 @@ on:
       conanfile:
         type: string
         required: false
-        default: conanfile.py
+        default: conanfile.txt
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
     secrets:
       RT_TOKEN:
