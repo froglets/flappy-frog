@@ -9,15 +9,13 @@
      "38",
      "39",
      "40",
-     "41",
-     "22",
-     "21"
+     "41"
     ],
     "path": "conanfile.py",
     "context": "host"
    },
    "1": {
-    "ref": "sdl/2.0.20#381f75b6180b2ad425eee1159afb7eb9",
+    "ref": "sdl/2.0.20#f2632d198f01cb41f153625d4dab60b9",
     "requires": [
      "2",
      "3",
@@ -166,7 +164,7 @@
     "context": "host"
    },
    "19": {
-    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
+    "ref": "wayland/1.20.0#8252e6c8344422aaf2ddc7f4146a5364",
     "requires": [
      "20",
      "21",
@@ -196,7 +194,7 @@
     "context": "host"
    },
    "22": {
-    "ref": "zlib/1.2.12#82202701ea360c0863f1db5008067122",
+    "ref": "zlib/1.2.12#bd533fb124387a214816ab72c8d1df28",
     "context": "host"
    },
    "23": {
@@ -762,7 +760,7 @@
     "context": "build"
    },
    "113": {
-    "ref": "wayland/1.20.0#1f2f03572e6285c045d121ba5faee401",
+    "ref": "wayland/1.20.0#8252e6c8344422aaf2ddc7f4146a5364",
     "requires": [
      "114",
      "115",
@@ -792,7 +790,7 @@
     "context": "build"
    },
    "116": {
-    "ref": "zlib/1.2.12#82202701ea360c0863f1db5008067122",
+    "ref": "zlib/1.2.12#bd533fb124387a214816ab72c8d1df28",
     "context": "build"
    },
    "117": {
