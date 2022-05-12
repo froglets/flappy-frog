@@ -45,7 +45,7 @@ Game::Game() {
 
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
         std::cout << SDL_GetError() << std::endl;
-        return 0;
+        return;
     }
 
     initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
