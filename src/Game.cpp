@@ -91,7 +91,6 @@ int Game::connect() {
          rgb_led_button_register_callback(&rlb,
                                          RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
                                          (void (*)(void))cb_button_state_changed,
-                                         (void *)frog->getBody());
      }
     return 0;
 }
