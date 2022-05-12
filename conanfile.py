@@ -1,6 +1,7 @@
 from conans import ConanFile
 
 class FlappyFrom(ConanFile):
+    name = "flappy-frog"
 
     generators = "CMakeToolchain", "CMakeDeps"
 
