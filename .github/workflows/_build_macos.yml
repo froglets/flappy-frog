@@ -111,7 +111,7 @@ jobs:
         run: |
           cd build
           conan info --lockfile=lockfile.json ../${{ inputs.conanfile }} --json=project.json
-          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing --generator=virtualenv
+          conan install --lockfile=lockfile.json ../${{ inputs.conanfile }} --build=missing --update
           conan remove "*" --builds --force
           conan remove "*" --src --force
 
@@ -122,8 +122,7 @@ jobs:
           jq '.[] | select( .context=="host") | select( .binary=="Missing") | .reference' project.json | while read -r reference ; do
             ref_unquoted=$(echo $reference | sed 's/\"//g')
             ref_usable=$(echo $ref_unquoted | sed '/@/!s/.*/&@/g')
-            echo "conan upload --confirm --parallel --all --remote sogo $ref_usable"
-            conan upload --confirm --parallel --all --remote sogo-project $ref_usable
+            conan upload --confirm --parallel --all --remote remote-project $ref_usable
           done
 
       # - name: Build the project
