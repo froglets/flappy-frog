@@ -3,6 +3,7 @@ from conans import ConanFile
 class FlappyFrom(ConanFile):
     name = "flappy-frog"
 
+    settings = "os", "arch", "compiler", "build_type"  # Needed for CMakeDeps
     generators = "CMakeToolchain", "CMakeDeps"
 
     def requirements(self):
