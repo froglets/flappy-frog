@@ -34,6 +34,7 @@ jobs:
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: master
       profile: release
+      conanfile: conanfile.py
 
   create_release:
     needs:
