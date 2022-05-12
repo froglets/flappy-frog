@@ -13,7 +13,6 @@
 
 // Callback function for button state changed callback
 void cb_button_state_changed(uint8_t state, void* user_data) {
-    b2Body* body = (b2Body*)user_data;
 
     if(state == RGB_LED_BUTTON_BUTTON_STATE_PRESSED) {
         printf("State: Pressed\n");
