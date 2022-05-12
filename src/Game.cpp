@@ -13,9 +13,11 @@
 
 // Callback function for button state changed callback
 void cb_button_state_changed(uint8_t state, void* user_data) {
+    Frog* frog = (Frog*)user_data;
 
     if(state == RGB_LED_BUTTON_BUTTON_STATE_PRESSED) {
         printf("State: Pressed\n");
+         frog->impulse();
     } else if(state == RGB_LED_BUTTON_BUTTON_STATE_RELEASED) {
         printf("State: Released\n");
     }
@@ -90,6 +92,7 @@ int Game::connect() {
          rgb_led_button_register_callback(&rlb,
                                          RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
                                          (void (*)(void))cb_button_state_changed,
+                                         (void *)frog.get());
      }
     return 0;
 }
