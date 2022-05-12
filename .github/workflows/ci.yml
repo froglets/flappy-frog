@@ -23,6 +23,7 @@ jobs:
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
       profile: release
+      conanfile: conanfile.py
 
   ci-macos-release:
     needs:
@@ -33,3 +34,4 @@ jobs:
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
       github_sha: ${{ github.sha }}
       profile: ios
+      conanfile: conanfile.py
