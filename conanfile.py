@@ -6,6 +6,10 @@ class FlappyFrom(ConanFile):
     settings = "os", "arch", "compiler", "build_type"  # Needed for CMakeDeps
     generators = "CMakeToolchain", "CMakeDeps"
 
+    def configure(self):
+        if self.settings.os != "Linux":
+            self.options["sdl_mixer"].nativemidi = False
+
     def requirements(self):
         self.requires("sdl/2.0.20")
         self.requires("sdl_image/2.0.5")
