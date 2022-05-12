@@ -2,6 +2,7 @@
  "graph_lock": {
   "nodes": {
    "0": {
+    "ref": "flappy-frog/0.1.0",
     "requires": [
      "1",
      "29",
@@ -11,7 +12,7 @@
      "40",
      "41"
     ],
-    "path": "conanfile.txt",
+    "path": "conanfile.py",
     "context": "host"
    },
    "1": {
