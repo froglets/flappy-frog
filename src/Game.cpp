@@ -17,7 +17,6 @@ void cb_button_state_changed(uint8_t state, void* user_data) {
 
     if(state == RGB_LED_BUTTON_BUTTON_STATE_PRESSED) {
         printf("State: Pressed\n");
-        body->ApplyForce(b2Vec2(0,300.0), body->GetPosition(), true);
     } else if(state == RGB_LED_BUTTON_BUTTON_STATE_RELEASED) {
         printf("State: Released\n");
     }
