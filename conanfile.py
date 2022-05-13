@@ -19,5 +19,7 @@ class FlappyFrom(ConanFile):
         self.requires("fmt/8.1.1")
         self.requires("tinkerforge-bindings/2.1.32")
 
+        self.requires("libtool/2.4.6")
+
         # Testing
         self.requires("catch2/2.13.7")
