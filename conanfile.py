@@ -7,7 +7,7 @@ class FlappyFrom(ConanFile):
     generators = "CMakeToolchain", "CMakeDeps"
 
     def configure(self):
-        self.options["sdl_mixer"].opus = False
+        self.options["sdl_mixer"].opus = True
 
     def requirements(self):
         self.requires("sdl/2.0.20")
