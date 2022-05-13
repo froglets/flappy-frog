@@ -97,6 +97,12 @@ jobs:
           mkdir build && cd build
           conan lock create --profile:host=${{ inputs.profile }} --profile:build=default --lockfile=../lockfile.json --lockfile-out=lockfile.json --name=${{ inputs.library_name }} --version=${{ inputs.library_version }} ../${{ inputs.conanfile }} --build --update
 
+      - name: Archive lockfile base
+        uses: actions/upload-artifact@v3
+        with: 
+          name: lockfile-base.json
+          path: ../lockfile.json
+
       - name: Archive lockfile
         uses: actions/upload-artifact@v3
         with: 
