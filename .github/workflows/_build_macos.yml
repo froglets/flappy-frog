@@ -106,8 +106,8 @@ jobs:
       - name: Archive lockfile
         uses: actions/upload-artifact@v3
         with: 
-          name: lockfile.json
-          path: build/lockfile-ios.json
+          name: lockfile-ios.json
+          path: build/lockfile.json
 
       - name: Build the build-requires
         # This is needed because of https://github.com/conan-io/conan/issues/10345, but
