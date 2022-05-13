@@ -7,18 +7,7 @@ class FlappyFrom(ConanFile):
     generators = "CMakeToolchain", "CMakeDeps"
 
     def configure(self):
-        self.options["sdl_mixer"].flac = False
-        self.options["sdl_mixer"].mpg123 = False
-        self.options["sdl_mixer"].mad = False
-        self.options["sdl_mixer"].ogg = False
         self.options["sdl_mixer"].opus = False
-        self.options["sdl_mixer"].mikmod = False
-        self.options["sdl_mixer"].modplug = False
-        self.options["sdl_mixer"].fluidsynth = False
-        if self.settings.os != "Linux":
-            self.options["sdl_mixer"].nativemidi = False
-        else:
-            self.options["sdl_mixer"].tinymidi = False
 
     def requirements(self):
         self.requires("sdl/2.0.20")
