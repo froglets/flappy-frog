@@ -32,6 +32,5 @@ jobs:
     with:
       library_name: ${{ github.event.repository.name }}
       library_version: ${{ needs.cmakelists-version.outputs.LIBRARY_VERSION }}
-      github_sha: ${{ github.sha }}
       profile: ios
       conanfile: conanfile.py
