@@ -56,9 +56,9 @@ void Frog::render(SDL_Renderer *renderer) {
     b2Vec2 frog_screen_position = Game::world2screen(frog_world_position);
 
     // Animation
-    Uint32 ticks = SDL_GetTicks();
-    Uint32 seconds = ticks / 200;
-    Uint32 sprite = seconds % 2;
+    int ticks = SDL_GetTicks();
+    int seconds = ticks / 200;
+    int sprite = seconds % 2;
     SDL_Rect srcrect = { sprite*40, 0, 40, 40 };
     SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
