@@ -26,7 +26,8 @@ install(TARGETS mygame
         PUBLIC_HEADER DESTINATION include
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
+        ARCHIVE DESTINATION lib
+        BUNDLE DESTINATION bin)
 
 file(GLOB ASSETS "${CMAKE_CURRENT_SOURCE_DIR}/../assets/*.png")
      
