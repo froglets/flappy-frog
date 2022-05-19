@@ -16,6 +16,10 @@ on:
         type: string
         required: true
         description: "Name of the library. It should match name of the repository"
+      library_version:
+        type: string
+        required: true
+        description: "Version of the library."
       profile:
         type: string
         required: true
