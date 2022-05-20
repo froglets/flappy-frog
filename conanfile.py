@@ -4,6 +4,7 @@ from conan import ConanFile
 class FlappyFrogRecipe(ConanFile):
     name = "flappy-frog"
     version = "0.1.0"
+
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeToolchain", "CMakeDeps"
 
