@@ -33,7 +33,6 @@ Frog::Frog(const b2Vec2& position, const World& world)
     jumpSound = Mix_LoadWAV("jump.wav");
     if(!jumpSound) {
         std::cout << SDL_GetError() << std::endl;
-        return 0;
     }
 }
 
@@ -42,7 +41,6 @@ void Frog::impulse() {
     if(Mix_PlayChannel(-1, jumpSound, 0) == -1) {
         std::cout << SDL_GetError() << std::endl;
         Mix_FreeChunk(jumpSound);
-        return 0;
     }
 }
 
@@ -69,7 +67,7 @@ void Frog::render(SDL_Renderer *renderer) {
     Uint32 ticks = SDL_GetTicks();
     Uint32 seconds = ticks / 200;
     Uint32 sprite = seconds % 2;
-    SDL_Rect srcrect = { sprite*40, 0, 40, 40 };
+    SDL_Rect srcrect = { static_cast<int>(sprite*40), 0, 40, 40 };
     SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),

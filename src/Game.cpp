@@ -45,8 +45,22 @@ Game::Game() {
 
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
         std::cout << SDL_GetError() << std::endl;
-        return 0;
     }
+
+    #ifdef IS_IOS
+        uint32_t displayWidth{0};
+        uint32_t displayHeight{0};
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+        displayWidth = static_cast<uint32_t>(displayMode.w);
+        displayHeight = static_cast<uint32_t>(displayMode.h);
+        Game::SCREEN_WIDTH = displayWidth;
+        Game::SCREEN_HEIGHT = displayHeight;
+        Game::WORLD_WIDTH = Game::SCREEN_WIDTH/100.0;
+        Game::WORLD_HEIGHT = Game::SCREEN_HEIGHT/100.0;
+        Game::SCALEX = Game::SCREEN_WIDTH/Game::WORLD_WIDTH;
+        Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
+    #endif
 
     initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
     initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);

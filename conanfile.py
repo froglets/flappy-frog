@@ -12,8 +12,14 @@ class FlappyFrogRecipe(ConanFile):
         if self.settings.os != "Linux":
             self.options["sdl_mixer"].nativemidi = False
 
+    @property
+    def _is_desktop(self):
+        return self.settings.os not in ["iOS", ]
+                
     def requirements(self):
-        self.requires("cli11/2.1.2")
+        if self._is_desktop:
+            self.requires("cli11/2.1.2")
+
         self.requires("sdl/2.0.20")
         self.requires("sdl_image/2.0.5")
         self.requires("sdl_mixer/2.0.4")
