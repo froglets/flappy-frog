@@ -5,7 +5,6 @@
 #include <math.h>
 
 
-
 Frog::Frog(const b2Vec2& position, const World& world)
 {
     // Create a dynamic body
@@ -30,10 +29,19 @@ Frog::Frog(const b2Vec2& position, const World& world)
     // You can add as many fixtures as you like to a body. Each one contributes to the total mass.
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
+
+    jumpSound = Mix_LoadWAV("jump.wav");
+    if(!jumpSound) {
+        std::cout << SDL_GetError() << std::endl;
+    }
 }
 
 void Frog::impulse() {
     _body->SetLinearVelocity(b2Vec2(0, _speed));
+    if(Mix_PlayChannel(-1, jumpSound, 0) == -1) {
+        std::cout << SDL_GetError() << std::endl;
+        Mix_FreeChunk(jumpSound);
+    }
 }
 
 SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) {
@@ -59,7 +67,7 @@ void Frog::render(SDL_Renderer *renderer) {
     int ticks = SDL_GetTicks();
     int seconds = ticks / 200;
     int sprite = seconds % 2;
-    SDL_Rect srcrect = { sprite*40, 0, 40, 40 };
+    SDL_Rect srcrect = { static_cast<int>(sprite*40), 0, 40, 40 };
     SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),
@@ -76,4 +84,8 @@ void Frog::render(SDL_Renderer *renderer) {
 
 void Frog::update(float delta) {
     _timeAlive += delta;
+}
+
+Frog::~Frog() {
+    Mix_FreeChunk(jumpSound);
 }

@@ -77,11 +77,12 @@ jobs:
         run: |
           mkdir build && cd build
           conan install ../${{ inputs.conanfile }} --profile:host=${{ inputs.profile }} --profile:build=default --build=missing --update
-          cmake .. -DCMAKE_MODULE_PATH=$(pwd) -DCMAKE_PREFIX_PATH=$(pwd) -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$(conan profile get settings.build_type ${{ inputs.profile }})
-          make
+          cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+          cmake --build . --config Release --target flappy-frog
 
       # - name: Run tests
       #   if: ${{ inputs.run_tests }}
       #   run: |
       #     cd build
       #     ${{ inputs.run_tests }}
+  
