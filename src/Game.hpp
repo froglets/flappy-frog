@@ -60,5 +60,6 @@ private:
     Connection connection;
     IPConnection ipcon;
     RGBLEDButton rlb;
-
+    SDL_Renderer* _renderer;
+    SDL_Window* _window;
 };

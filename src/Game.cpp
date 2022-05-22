@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "Platform.hpp"
 
 #include <iomanip>
 #include <iostream>
@@ -65,8 +66,20 @@ Game::Game() {
     initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
     initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
 
-    frog = std::make_unique<Frog>(initFrogPos, world);
-    pipe = std::make_unique<Pipe>(initPipePos, world);
+    unsigned int windowFlags = SDL_WINDOW_SHOWN;
+    #ifdef IS_IOS
+        windowFlags |= SDL_WINDOW_BORDERLESS | SDL_WINDOW_FULLSCREEN;
+    #endif
+
+    _window = SDL_CreateWindow("Flappy Frog",
+                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                          SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
+
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+
+    frog = std::make_unique<Frog>(initFrogPos, world, _renderer);
+    pipe = std::make_unique<Pipe>(initPipePos, world, _renderer);
 }
 
 void Game::addConnection(Connection conn) {
@@ -112,11 +125,6 @@ int Game::connect() {
 }
 
 int Game::loop() {
-    SDL_Window *window = SDL_CreateWindow("Flappy Frog",
-                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     SDL_Event event;
 
@@ -138,8 +146,8 @@ int Game::loop() {
         }
 
         //Clear screen
-        SDL_SetRenderDrawColor( renderer, 120, 120, 230, 0 );
-        SDL_RenderClear( renderer );
+        SDL_SetRenderDrawColor( _renderer, 120, 120, 230, 0 );
+        SDL_RenderClear( _renderer );
 
         b2Vec2 frog_screen_position = world2screen(frog->getPosition());
         std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
@@ -150,17 +158,17 @@ int Game::loop() {
         if (connection)
             rgb_led_button_set_color(&rlb, 200, color, 0);
 
-        frog->render(renderer);
-        pipe->render(renderer);
+        frog->render();
+        pipe->render();
 
-        SDL_RenderPresent( renderer );
+        SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
         world.update(elapsedTime);
         pipe->update(elapsedTime);
     }
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(_renderer);
+    SDL_DestroyWindow(_window);
     Mix_CloseAudio();
     SDL_Quit();
     return EXIT_SUCCESS;
