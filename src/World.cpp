@@ -2,17 +2,31 @@
 #include "Game.hpp"
 
 World::World() {
-    // Create the ground body
-    b2BodyDef groundBodyDef;
-    b2Vec2 world_position = b2Vec2(Game::WORLD_WIDTH/2.0,-0.5);
-    groundBodyDef.position.Set(world_position.x, world_position.y);
-    b2Body* groundBody = _world->CreateBody(&groundBodyDef);
-    b2PolygonShape groundBox;
-    groundBox.SetAsBox(Game::WORLD_WIDTH/2.0, 0.5f);
-    groundBody->CreateFixture(&groundBox, 0.0f);
+    createFloor();
+    createRoof();
 }
 
 
 void World::update(float elapsedTime) {
     _world->Step(elapsedTime, _velocityIterations, _positionIterations);
+}
+
+void World::createFloor() {
+    // Create the ground body
+    b2BodyDef floorBodyDef;
+    floorBodyDef.position.Set(0,0);
+    b2Body* floorBody = _world->CreateBody(&floorBodyDef);
+    b2EdgeShape floorBox;
+    floorBox.SetTwoSided(b2Vec2(0,0), b2Vec2(Game::WORLD_WIDTH,0));
+    floorBody->CreateFixture(&floorBox, 0.0f);
+}
+
+void World::createRoof() {
+    // Create the ground body
+    b2BodyDef roofBodyDef;
+    roofBodyDef.position.Set(0,Game::WORLD_HEIGHT);
+    b2Body* roofBody = _world->CreateBody(&roofBodyDef);
+    b2EdgeShape roofBox;
+    roofBox.SetTwoSided(b2Vec2(0,0), b2Vec2(Game::WORLD_WIDTH,0));
+    roofBody->CreateFixture(&roofBox, 0.0f);
 }
