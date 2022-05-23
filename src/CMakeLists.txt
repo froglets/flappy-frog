@@ -27,6 +27,8 @@ add_executable(flappy-frog main.cpp
                            Game.hpp
                            World.hpp
                            Platform.hpp
+                           Layer.cpp 
+                           Layer.hpp
                            ${ADDITIONAL_PROJECT_FILES})                           
 
 target_include_directories(flappy-frog PRIVATE include)

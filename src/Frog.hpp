@@ -14,7 +14,7 @@ class World;
 class Frog {
 
 public:
-    Frog(const b2Vec2& position, const World& world);
+    Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer);
     Frog(const Frog&);
     Frog& operator=(const Frog&);
     ~Frog();
@@ -22,8 +22,8 @@ public:
     void impulse();
     b2Vec2 getPosition() const {return _body->GetPosition();};
     const b2Body* getBody() {return _body;};
-    void render(SDL_Renderer *renderer);
-    SDL_Texture* initTexture(const std::string& name, SDL_Renderer *renderer);
+    void render();
+    SDL_Texture* initTexture(const std::string& name);
 private:
     const float _density{10.00f};
     const float _friction{0.0f};
@@ -34,6 +34,7 @@ private:
     float _timeAlive {0};
     b2Body* _body;
     SDL_Texture* _texture{nullptr};
+    SDL_Renderer* _renderer;
     Mix_Chunk* jumpSound{nullptr};
 };
 

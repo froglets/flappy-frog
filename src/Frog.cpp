@@ -5,8 +5,9 @@
 #include <math.h>
 
 
-Frog::Frog(const b2Vec2& position, const World& world)
+Frog::Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
 {
+    _renderer = renderer;
     // Create a dynamic body
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -44,19 +45,19 @@ void Frog::impulse() {
     }
 }
 
-SDL_Texture* Frog::initTexture(const std::string& name, SDL_Renderer *renderer) {
+SDL_Texture* Frog::initTexture(const std::string& name) {
     SDL_Surface* tmp_image;
     tmp_image = IMG_Load(name.c_str());
     if(!tmp_image) {
         std::cout << "Error loading texture" << std::endl;
         exit(1);
     }
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tmp_image);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, tmp_image);
     SDL_FreeSurface(tmp_image);
     return texture;
 }
 
-void Frog::render(SDL_Renderer *renderer) {
+void Frog::render() {
     //Render filled quad
 
 
@@ -73,13 +74,13 @@ void Frog::render(SDL_Renderer *renderer) {
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),
                           static_cast<int>(Game::SCALEY*frog_dimensions.y)};
     if(!_texture) {
-        _texture = initTexture("frog_sprite.png", renderer);
+        _texture = initTexture("frog_sprite.png");
     }
     else {
-        SDL_RenderCopyEx(renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(_renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
     }
     
-    //SDL_RenderFillRect( renderer, &frogRect );
+    //SDL_RenderFillRect( _renderer, &frogRect );
 }
 
 void Frog::update(float delta) {

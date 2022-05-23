@@ -6,8 +6,9 @@
 
 
 
-Pipe::Pipe(const b2Vec2& position, const World& world)
+Pipe::Pipe(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
 {
+    _renderer = renderer;
     // Create a dynamic body
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -28,14 +29,14 @@ Pipe::Pipe(const b2Vec2& position, const World& world)
     _body->SetLinearVelocity(b2Vec2(-2.5,0.0));
 }
 
-SDL_Texture* Pipe::initTexture(const std::string& name, SDL_Renderer *renderer) {
+SDL_Texture* Pipe::initTexture(const std::string& name) {
     SDL_Surface* tmp_image;
     tmp_image = IMG_Load(name.c_str());
     if(!tmp_image) {
         std::cout << "Error loading texture" << std::endl;
         exit(1);
     }
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tmp_image);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, tmp_image);
     SDL_FreeSurface(tmp_image);
     return texture;
 }
@@ -46,7 +47,7 @@ void Pipe::update(float delta) {
     }
 }
 
-void Pipe::render(SDL_Renderer *renderer) {
+void Pipe::render() {
     //Render filled quad
 
 
@@ -59,11 +60,11 @@ void Pipe::render(SDL_Renderer *renderer) {
                           static_cast<int>(Game::SCALEY*pipe_dimensions.y)};
 
     if(!_texture) {
-        _texture = initTexture("pipe.png", renderer);
+        _texture = initTexture("pipe.png");
     }
     else {
-        SDL_RenderCopyEx(renderer, _texture, NULL, &pipeRect, 0.0, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(_renderer, _texture, NULL, &pipeRect, 0.0, NULL, SDL_FLIP_NONE);
     }
     
-    //SDL_RenderFillRect( renderer, &pipeRect );
+    //SDL_RenderFillRect( _renderer, &pipeRect );
 }
