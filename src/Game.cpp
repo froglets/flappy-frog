@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Platform.hpp"
+#include "Layer.hpp"
 
 #include <iomanip>
 #include <iostream>
@@ -10,7 +11,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-
 
 // Callback function for button state changed callback
 void cb_button_state_changed(uint8_t state, void* user_data) {
@@ -128,6 +128,9 @@ int Game::loop() {
 
     SDL_Event event;
 
+    Layer sky(_renderer, "background-sky.png", 100);
+    Layer mountains(_renderer, "background-mountains.png", 20);
+    Layer ground(_renderer, "background-ground.png", 840);
 
     bool quit = false;
     double elapsedTime = 1.0/60.0;
@@ -158,14 +161,24 @@ int Game::loop() {
         if (connection)
             rgb_led_button_set_color(&rlb, 200, color, 0);
 
+        sky.render();
+        mountains.render();
+
         frog->render();
         pipe->render();
+
+        ground.render();
+
 
         SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
         world.update(elapsedTime);
         pipe->update(elapsedTime);
+
+        sky.update(elapsedTime);
+        mountains.update(elapsedTime);
+        ground.update(elapsedTime);
     }
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);
