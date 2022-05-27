@@ -1,13 +1,27 @@
-//
-//  ObstacleManager.hpp
-//  flappy-frog
-//
-//  Created by Carlos Zoido on 26/5/22.
-//
-
 #ifndef ObstacleManager_hpp
 #define ObstacleManager_hpp
 
-#include <stdio.h>
+#include "Pipe.hpp"
+
+#include <vector>
+
+class Obstacle {
+public:
+    Obstacle() = default;
+    ~Obstacle() = default;
+
+    std::unique_ptr<Pipe> ground_pipe;
+    std::unique_ptr<Pipe> sky_pipe;
+};
+
+class ObstacleManager {
+public:
+    ObstacleManager();
+    ~ObstacleManager() = default;
+    void update(float elapsedTime);
+
+private:
+    std::vector<Obstacle> _obstacle_list;
+};
 
 #endif /* ObstacleManager_hpp */

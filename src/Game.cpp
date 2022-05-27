@@ -80,6 +80,7 @@ Game::Game() {
 
     frog = std::make_unique<Frog>(initFrogPos, world, _renderer);
     pipe = std::make_unique<Pipe>(initPipePos, world, _renderer);
+
 }
 
 void Game::addConnection(Connection conn) {
@@ -153,9 +154,9 @@ int Game::loop() {
         SDL_RenderClear( _renderer );
 
         b2Vec2 frog_screen_position = world2screen(frog->getPosition());
-        std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
+        //std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
         float color = remap(frog_screen_position.y, 400, 0, 0, 255);
-        std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
+        //std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
 
         //Set button color
         if (connection)
@@ -169,16 +170,26 @@ int Game::loop() {
 
         ground.render();
 
+        
 
         SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
-        world.update(elapsedTime);
-        pipe->update(elapsedTime);
 
-        sky.update(elapsedTime);
-        mountains.update(elapsedTime);
-        ground.update(elapsedTime);
+        bool killed = world.checkFrogCollision();
+
+        if (!killed) {
+            pipe->update(elapsedTime);
+
+            sky.update(elapsedTime);
+            mountains.update(elapsedTime);
+            ground.update(elapsedTime);
+        }
+        else {
+            pipe->stop();
+        }
+
+        world.update(elapsedTime);
     }
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);

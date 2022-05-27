@@ -8,6 +8,12 @@
 #include "Pipe.hpp"
 #include "World.hpp"
 
+struct BodyUserData
+{
+    int id;
+};
+ 
+
 class Connection {
 
 public:

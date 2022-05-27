@@ -1,11 +1,40 @@
 #include "World.hpp"
 #include "Game.hpp"
+#include <iostream>
 
 World::World() {
     createFloor();
     createRoof();
 }
 
+bool World::checkFrogCollision() {
+
+    bool kill_frog = false;
+    for (b2Contact* contact = _world->GetContactList(); contact; contact = contact->GetNext()) {
+        if (contact->IsTouching()) {
+            b2BodyUserData user_data_a = contact->GetFixtureA()->GetBody()->GetUserData();
+            b2BodyUserData user_data_b = contact->GetFixtureB()->GetBody()->GetUserData();
+            if (user_data_a.pointer != 0) {
+                BodyUserData* wrapper = reinterpret_cast<BodyUserData*>(user_data_a.pointer);
+                //std::cout << wrapper->id << std::endl;
+                if (wrapper->id==1) {
+                    kill_frog = true;
+                }
+            }
+            if (user_data_b.pointer != 0) {
+                BodyUserData* wrapper = reinterpret_cast<BodyUserData*>(user_data_b.pointer);
+                //std::cout << wrapper->id << std::endl;
+                if (wrapper->id==1) {
+                    kill_frog = true;
+                }
+            }
+        }
+        if (kill_frog) {
+            return kill_frog;
+        }
+    }
+    return kill_frog;
+}
 
 void World::update(float elapsedTime) {
     _world->Step(elapsedTime, _velocityIterations, _positionIterations);

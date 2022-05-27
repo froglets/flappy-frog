@@ -20,6 +20,7 @@ public:
     World();
     ~World() = default;
     void update(float elapsedTime);
+    bool checkFrogCollision();
     const std::unique_ptr<b2World>& getWorld() const {return _world;};
     
 };
