@@ -64,7 +64,6 @@ Game::Game() {
     #endif
 
     initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
-    initPipePos = b2Vec2(2*WORLD_WIDTH,0.0);
 
     unsigned int windowFlags = SDL_WINDOW_SHOWN;
     #ifdef IS_IOS
@@ -79,8 +78,8 @@ Game::Game() {
 
 
     frog = std::make_unique<Frog>(initFrogPos, world, _renderer);
-    pipe = std::make_unique<Pipe>(initPipePos, world, _renderer);
 
+    _obstacles.init(world, _renderer);
 }
 
 void Game::addConnection(Connection conn) {
@@ -166,7 +165,7 @@ int Game::loop() {
         mountains.render();
 
         frog->render();
-        pipe->render();
+        _obstacles.render();
 
         ground.render();
 
@@ -178,14 +177,14 @@ int Game::loop() {
         bool killed = world.checkFrogCollision();
 
         if (!killed) {
-            pipe->update(elapsedTime);
+            _obstacles.update(elapsedTime);
 
             sky.update(elapsedTime);
             mountains.update(elapsedTime);
             ground.update(elapsedTime);
         }
         else {
-            pipe->stop();
+            _obstacles.stop();
         }
 
         world.update(elapsedTime);

@@ -5,9 +5,9 @@
 #include <math.h>
 
 
-Frog::Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
+Frog::Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer):
+_renderer(renderer)
 {
-    _renderer = renderer;
     // Create a dynamic body
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -40,6 +40,7 @@ Frog::Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
     if(!jumpSound) {
         std::cout << SDL_GetError() << std::endl;
     }
+    _texture = initTexture("frog.png");
 }
 
 void Frog::impulse() {
@@ -78,14 +79,7 @@ void Frog::render() {
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),
                           static_cast<int>(Game::SCALEY*frog_dimensions.y)};
-    if(!_texture) {
-        _texture = initTexture("frog.png");
-    }
-    else {
-        SDL_RenderCopyEx(_renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
-    }
-    
-    //SDL_RenderFillRect( _renderer, &frogRect );
+    SDL_RenderCopyEx(_renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);
 }
 
 void Frog::update(float delta) {

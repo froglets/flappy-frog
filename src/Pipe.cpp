@@ -5,10 +5,11 @@
 #include <math.h>
 
 
-
-Pipe::Pipe(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
+Pipe::Pipe(const b2Vec2& position, const World& world, SDL_Renderer *renderer, bool roof):
+_roof(roof),
+_renderer(renderer),
+_init_pos(position)
 {
-    _renderer = renderer;
     // Create a dynamic body
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -26,14 +27,13 @@ Pipe::Pipe(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
     fixtureDef.shape = &dynamicBox;
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
-    _body->SetLinearVelocity(b2Vec2(-2.5,0.0));
+    _body->SetLinearVelocity(b2Vec2(-2.25,0.0));
 
     BodyUserData* myData = new BodyUserData;
     myData->id = 2;
 
     _body->GetUserData().pointer=(uintptr_t)myData;
-
-
+    _texture = initTexture("pipe.png");
 }
 
 void Pipe::stop() {
@@ -52,9 +52,9 @@ SDL_Texture* Pipe::initTexture(const std::string& name) {
     return texture;
 }
 
-void Pipe::update(float delta) {
+void Pipe::update(float delta, float free_pos_x, float rand_y) {
     if (_body->GetPosition().x<-pipe_dimensions.x) {
-        _body->SetTransform(b2Vec2(Game::WORLD_WIDTH+pipe_dimensions.x,0),0.0);
+        _body->SetTransform(b2Vec2(free_pos_x,_init_pos.y+rand_y),0.0);
     }
 }
 
@@ -69,12 +69,7 @@ void Pipe::render() {
                           static_cast<int>(Game::SCALEX*pipe_dimensions.x),
                           static_cast<int>(Game::SCALEY*pipe_dimensions.y)};
 
-    if(!_texture) {
-        _texture = initTexture("pipe.png");
-    }
-    else {
-        SDL_RenderCopyEx(_renderer, _texture, NULL, &pipeRect, 0.0, NULL, SDL_FLIP_NONE);
-    }
     
-    //SDL_RenderFillRect( _renderer, &pipeRect );
+    SDL_RendererFlip flip = _roof ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(_renderer, _texture, NULL, &pipeRect, 0.0, NULL, flip);
 }
