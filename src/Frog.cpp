@@ -31,6 +31,11 @@ Frog::Frog(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
 
+    BodyUserData* myData = new BodyUserData;
+    myData->id = 1;
+
+    _body->GetUserData().pointer=(uintptr_t)myData;
+    
     jumpSound = Mix_LoadWAV("jump.wav");
     if(!jumpSound) {
         std::cout << SDL_GetError() << std::endl;
@@ -68,13 +73,13 @@ void Frog::render() {
     int ticks = SDL_GetTicks();
     int seconds = ticks / 200;
     int sprite = seconds % 2;
-    SDL_Rect srcrect = { static_cast<int>(sprite*40), 0, 40, 40 };
+    SDL_Rect srcrect = { sprite*84, 0, 84, 78 };
     SDL_Rect frogRect = { static_cast<int>(frog_screen_position.x),
                           static_cast<int>(frog_screen_position.y-Game::SCALEY*frog_dimensions.y),
                           static_cast<int>(Game::SCALEX*frog_dimensions.x),
                           static_cast<int>(Game::SCALEY*frog_dimensions.y)};
     if(!_texture) {
-        _texture = initTexture("frog_sprite.png");
+        _texture = initTexture("frog.png");
     }
     else {
         SDL_RenderCopyEx(_renderer, _texture, &srcrect, &frogRect, 0.0, NULL, SDL_FLIP_NONE);

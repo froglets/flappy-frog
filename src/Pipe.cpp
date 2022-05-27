@@ -27,6 +27,17 @@ Pipe::Pipe(const b2Vec2& position, const World& world, SDL_Renderer *renderer)
     _body->CreateFixture(&fixtureDef);
     _body->SetFixedRotation(true);
     _body->SetLinearVelocity(b2Vec2(-2.5,0.0));
+
+    BodyUserData* myData = new BodyUserData;
+    myData->id = 2;
+
+    _body->GetUserData().pointer=(uintptr_t)myData;
+
+
+}
+
+void Pipe::stop() {
+    _body->SetLinearVelocity(b2Vec2(0.0,0.0));
 }
 
 SDL_Texture* Pipe::initTexture(const std::string& name) {
@@ -52,7 +63,6 @@ void Pipe::render() {
 
 
     b2Vec2 pipe_world_position = getPosition();
-    std::cout << pipe_world_position.x << "," << pipe_world_position.y << std::endl;
     b2Vec2 pipe_screen_position = Game::world2screen(pipe_world_position);
     SDL_Rect pipeRect = { static_cast<int>(pipe_screen_position.x),
                           static_cast<int>(pipe_screen_position.y-Game::SCALEY*pipe_dimensions.y),

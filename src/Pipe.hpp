@@ -21,6 +21,7 @@ public:
     b2Vec2 getPosition() const {return _body->GetPosition();};
     const b2Body* getBody() {return _body;};
     void render();
+    void stop();
     SDL_Texture* initTexture(const std::string& name);
 private:
     const b2Vec2 pipe_dimensions{0.75f*0.8, 0.75f*1.7};

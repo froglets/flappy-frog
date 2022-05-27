@@ -170,7 +170,6 @@ int Game::loop() {
 
         ground.render();
 
-        
 
         SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
