@@ -7,6 +7,13 @@
 #include "Frog.hpp"
 #include "Pipe.hpp"
 #include "World.hpp"
+#include "ObstacleManager.hpp"
+
+struct BodyUserData
+{
+    int id;
+};
+ 
 
 class Connection {
 
@@ -54,6 +61,8 @@ public:
 private:
     World world{};
 
+    ObstacleManager _obstacles;
+    
     std::unique_ptr<Frog> frog;
     std::unique_ptr<Pipe> pipe;
 

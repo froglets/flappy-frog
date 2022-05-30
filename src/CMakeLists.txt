@@ -29,6 +29,8 @@ add_executable(flappy-frog main.cpp
                            Platform.hpp
                            Layer.cpp 
                            Layer.hpp
+                           ObstacleManager.cpp 
+                           ObstacleManager.hpp
                            ${ADDITIONAL_PROJECT_FILES})                           
 
 target_include_directories(flappy-frog PRIVATE include)
