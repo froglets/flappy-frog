@@ -90,7 +90,7 @@ jobs:
         if: ${{ inputs.remote_project }}
         run: |
           conan remote add -i 0 remote-project ${{ inputs.remote_project }}
-          conan user -r remote-project -p ${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
+          conan user -r=remote-project -p=${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
 
       - name: Prepare deps
         run: |
