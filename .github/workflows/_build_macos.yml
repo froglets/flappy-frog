@@ -37,7 +37,11 @@ on:
         required: false
         default: conanfile.txt
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
-
+    secrets:
+      RT_TOKEN:
+        required: true
+      RT_USERNAME:
+        required: true
 
 jobs:
   build_and_test:
