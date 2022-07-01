@@ -68,6 +68,12 @@ jobs:
           conan --version
           conan config home
 
+      - name: Connect to remote (project)
+        if: ${{ inputs.remote_project }}
+        run: |
+          conan remote add -i 0 remote-project ${{ inputs.remote_project }}
+          conan user -r remote-project -p ${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
+
       - name: Prepare deps
         run: |
           cp -r .conan/* $(conan config home)
@@ -79,6 +85,11 @@ jobs:
           conan install ../${{ inputs.conanfile }} --profile:host=${{ inputs.profile }} --profile:build=default --build=missing --update
           cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
           cmake --build . --config Release --target flappy-frog
+
+      - name: Upload packages that have being built
+        if: ${{ inputs.remote_project }}
+        run: |
+          conan upload --confirm --parallel --all --remote remote-project *
 
       # - name: Run tests
       #   if: ${{ inputs.run_tests }}
