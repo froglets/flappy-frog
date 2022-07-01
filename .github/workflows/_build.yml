@@ -38,9 +38,9 @@ on:
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
     secrets:
       RT_TOKEN:
-        required: true
+        required: false
       RT_USERNAME:
-        required: true
+        required: false
 
 env:
   CONAN_USER_HOME: /home/conan
@@ -58,8 +58,6 @@ jobs:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
       CONAN_PRINT_RUN_COMMANDS: 1
-      RT_USERNAME: ${{ secrets.RT_USERNAME }}
-      RT_TOKEN: ${{ secrets.RT_TOKEN }}
     steps:
 
       - name: Install jq
