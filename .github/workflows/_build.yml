@@ -36,9 +36,6 @@ on:
         required: false
         default: conanfile.py
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
-    with:
-      rt_username: ${{ secrets.RT_USERNAME }}
-      rt_token: ${{ secrets.RT_TOKEN }}
 
 env:
   CONAN_USER_HOME: /home/conan
