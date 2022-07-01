@@ -20,6 +20,10 @@ on:
         type: string
         required: true
         description: "Version of the library."
+      remote_project:
+        type: string
+        required: false
+        default: ""
       profile:
         type: string
         required: true
