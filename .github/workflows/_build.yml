@@ -36,11 +36,9 @@ on:
         required: false
         default: conanfile.py
         description: "Name of the conanfile, typically it will be `conanfile.txt` or `conanfile.py`"
-    secrets:
-      RT_TOKEN:
-        required: false
-      RT_USERNAME:
-        required: false
+    with:
+      rt_username: ${{ secrets.RT_USERNAME }}
+      rt_token: ${{ secrets.RT_TOKEN }}
 
 env:
   CONAN_USER_HOME: /home/conan
@@ -58,6 +56,8 @@ jobs:
       CONAN_USER_HOME: /home/conan
       CONAN_SYSREQUIRES_MODE: enabled
       CONAN_PRINT_RUN_COMMANDS: 1
+      RT_USERNAME: ${{ secrets.RT_USERNAME }}
+      RT_TOKEN: ${{ secrets.RT_TOKEN }}
     steps:
 
       - name: Install jq
@@ -90,7 +90,7 @@ jobs:
         if: ${{ inputs.remote_project }}
         run: |
           conan remote add -i 0 remote-project ${{ inputs.remote_project }}
-          conan user -r=remote-project -p=${{secrets.RT_TOKEN}} ${{secrets.RT_USERNAME}}
+          conan user -r=remote-project -p=$RT_TOKEN $RT_USERNAME
 
       - name: Prepare deps
         run: |
