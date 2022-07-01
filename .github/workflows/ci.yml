@@ -25,6 +25,9 @@ jobs:
       profile: release
       remote_project: https://bateltest.jfrog.io/artifactory/api/conan/flappy-frog-project-conan-local
       conanfile: conanfile.py
+    secrets:
+      RT_USERNAME: ${{ secrets.RT_USERNAME }}
+      RT_TOKEN: ${{ secrets.RT_TOKEN }}
 
   ci-macos-release:
     needs:
@@ -36,3 +39,6 @@ jobs:
       profile: ios
       remote_project: https://bateltest.jfrog.io/artifactory/api/conan/flappy-frog-project-conan-local
       conanfile: conanfile.py
+    secrets:
+      RT_USERNAME: ${{ secrets.RT_USERNAME }}
+      RT_TOKEN: ${{ secrets.RT_TOKEN }}
