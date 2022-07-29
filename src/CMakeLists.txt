@@ -31,6 +31,14 @@ add_executable(flappy-frog main.cpp
                            Layer.hpp
                            ObstacleManager.cpp 
                            ObstacleManager.hpp
+                           ScreenManager.cpp 
+                           ScreenManager.hpp
+                           StartScreen.cpp 
+                           StartScreen.hpp
+                           GameScreen.cpp 
+                           GameScreen.hpp
+                           EndScreen.cpp 
+                           EndScreen.hpp
                            ${ADDITIONAL_PROJECT_FILES})                           
 
 target_include_directories(flappy-frog PRIVATE include)
