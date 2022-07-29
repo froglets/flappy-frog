@@ -3,6 +3,7 @@
 StartScreen::StartScreen(SDL_Renderer *renderer):
 _renderer(renderer)
 {
+    start = std::make_unique<Layer>(_renderer, "flappy_frog.png", 0);
 }
 
 StartScreen::~StartScreen() {
@@ -19,9 +20,11 @@ bool StartScreen::handleEvent(const SDL_Event& event) {
 void StartScreen::render() {
     SDL_SetRenderDrawColor( _renderer, 255, 0, 0, 0 );
     SDL_RenderClear( _renderer );
+    start->render();
 }
 
 int StartScreen::update(float elapsedTime, bool endGame) {
+    start->render();
     return 0;
 }
 
