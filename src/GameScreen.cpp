@@ -27,20 +27,23 @@ _renderer(renderer)
 GameScreen::~GameScreen() {
 }
 
-void GameScreen::handleEvent(const SDL_Event& event) {
+bool GameScreen::handleEvent(const SDL_Event& event) {
     if (event.key.keysym.sym == SDLK_UP || event.type == SDL_FINGERDOWN)
     {
         frog->impulse();
     }
-
+    return true;
 }
 
 void GameScreen::render() {
-        sky->render();
-        mountains->render();
-        frog->render();
-        _obstacles.render();
-        ground->render();
+    SDL_SetRenderDrawColor( _renderer, 120, 120, 230, 0 );
+    SDL_RenderClear( _renderer );
+
+    sky->render();
+    mountains->render();
+    frog->render();
+    _obstacles.render();
+    ground->render();
 }
 
 int GameScreen::update(float elapsedTime, bool endGame) {

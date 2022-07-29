@@ -57,8 +57,7 @@ public:
 
 private:
     bool endGame{false};
-    ScreenManager screenManager;
-    std::unique_ptr<GameScreen> gameScreen; 
+    std::unique_ptr<ScreenManager> screenManager;
     Connection connection;
     IPConnection ipcon;
     RGBLEDButton rlb;

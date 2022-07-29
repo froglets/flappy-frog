@@ -74,7 +74,8 @@ Game::Game() {
 
     _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    gameScreen = std::make_unique<GameScreen>(_renderer);
+    
+    screenManager = std::make_unique<ScreenManager>(_renderer);
 }
 
 void Game::addConnection(Connection conn) {
@@ -137,13 +138,9 @@ int Game::loop() {
                 quit = true;
             }
             else {
-                gameScreen->handleEvent(event);
+                screenManager->handleEvent(event);
             }
         }
-
-        //Clear screen
-        SDL_SetRenderDrawColor( _renderer, 120, 120, 230, 0 );
-        SDL_RenderClear( _renderer );
         
         // TODO: FIX!
         //b2Vec2 frog_screen_position = world2screen(frog->getPosition());
@@ -158,12 +155,13 @@ int Game::loop() {
         //    rgb_led_button_set_color(&rlb, 200, color, 0);
 
         // move to screenmanager
-        gameScreen->render();
+        screenManager->render();
 
         SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
-        endGame = gameScreen->update(elapsedTime, endGame);
+
+        endGame = screenManager->update(elapsedTime, endGame);
     }
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);

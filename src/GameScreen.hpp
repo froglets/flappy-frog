@@ -31,7 +31,7 @@ public:
     ~GameScreen();
     void render();
     int update(float elapsedTime, bool endGame);
-    void handleEvent(const SDL_Event& event);
+    bool handleEvent(const SDL_Event& event);
 
     b2Vec2 initFrogPos;
     b2Vec2 initPipePos;
