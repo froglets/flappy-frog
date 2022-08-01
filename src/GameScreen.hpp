@@ -30,9 +30,10 @@ public:
     GameScreen(SDL_Renderer *renderer);
     ~GameScreen();
     void render();
-    int update(float elapsedTime, bool endGame);
+    bool update(float elapsedTime);
     bool handleEvent(const SDL_Event& event);
-
+    void resetGame();
+    
     b2Vec2 initFrogPos;
     b2Vec2 initPipePos;
 
@@ -42,6 +43,7 @@ private:
     std::unique_ptr<Frog> frog;
     std::unique_ptr<Pipe> pipe;
     SDL_Renderer* _renderer;
+    bool collision{false};
 
     std::unique_ptr<Layer> sky;
     std::unique_ptr<Layer> mountains;

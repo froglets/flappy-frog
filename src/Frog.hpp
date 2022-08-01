@@ -21,6 +21,10 @@ public:
     void update(float delta);
     void impulse();
     b2Vec2 getPosition() const {return _body->GetPosition();};
+    void setPosition(const b2Vec2& pos) const {
+        _body->SetLinearVelocity(b2Vec2(0,0));
+        _body->SetTransform(pos,_body->GetAngle());
+    };
     const b2Body* getBody() {return _body;};
     void render();
     SDL_Texture* initTexture(const std::string& name);

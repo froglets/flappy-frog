@@ -20,7 +20,3 @@ void EndScreen::render() {
     SDL_SetRenderDrawColor( _renderer, 45, 36, 23, 0 );
     SDL_RenderClear( _renderer );
 }
-
-int EndScreen::update(float elapsedTime, bool endGame) {
-    return 0;
-}

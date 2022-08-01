@@ -13,7 +13,6 @@ public:
     StartScreen(SDL_Renderer *renderer);
     ~StartScreen();
     void render();
-    int update(float elapsedTime, bool endGame);
     bool handleEvent(const SDL_Event& event);
 
 

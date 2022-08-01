@@ -22,9 +22,3 @@ void StartScreen::render() {
     SDL_RenderClear( _renderer );
     start->render();
 }
-
-int StartScreen::update(float elapsedTime, bool endGame) {
-    start->render();
-    return 0;
-}
-

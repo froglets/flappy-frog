@@ -46,9 +46,9 @@ void GameScreen::render() {
     ground->render();
 }
 
-int GameScreen::update(float elapsedTime, bool endGame) {
-    if (!endGame) {
-        endGame = world.checkFrogCollision();
+bool GameScreen::update(float elapsedTime) {
+    collision = world.checkFrogCollision();
+    if (!collision) {
         _obstacles.update(elapsedTime);
         sky->update(elapsedTime);
         mountains->update(elapsedTime);
@@ -58,6 +58,13 @@ int GameScreen::update(float elapsedTime, bool endGame) {
         _obstacles.stop();
     }
     world.update(elapsedTime);    
-    return endGame;
+    return collision;
 }
 
+void GameScreen::resetGame() {
+    _obstacles.reset();
+    frog->setPosition(initFrogPos);
+    bool ret = update(1.0/60.0);
+    std::cout << ret << std::endl;
+    collision = false;
+}

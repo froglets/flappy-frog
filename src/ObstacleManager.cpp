@@ -18,6 +18,26 @@ void ObstacleManager::init(World& world, SDL_Renderer *renderer) {
     _obstacles[2]->roof_pipe = std::make_unique<Pipe>(b2Vec2(4*_interval,roof), world, renderer, true);
 }
 
+void ObstacleManager::reset() {
+    _interval = Game::WORLD_WIDTH/2.0;
+    float floor = Game::WORLD_HEIGHT/2.0 - Game::WORLD_HEIGHT/2.0;
+    float roof = Game::WORLD_HEIGHT/2.0 + Game::WORLD_HEIGHT/4.0;
+
+    _obstacles[0]->floor_pipe->setPosition(b2Vec2(2*_interval,floor));
+    _obstacles[0]->roof_pipe->setPosition(b2Vec2(2*_interval,roof));
+    _obstacles[1]->floor_pipe->setPosition(b2Vec2(3*_interval,floor));
+    _obstacles[1]->roof_pipe->setPosition(b2Vec2(3*_interval,roof));
+    _obstacles[2]->floor_pipe->setPosition(b2Vec2(4*_interval,floor));
+    _obstacles[2]->roof_pipe->setPosition(b2Vec2(4*_interval,roof));
+
+    _obstacles[0]->floor_pipe->resetVel();    
+    _obstacles[0]->roof_pipe->resetVel();
+    _obstacles[1]->floor_pipe->resetVel();
+    _obstacles[1]->roof_pipe->resetVel();
+    _obstacles[2]->floor_pipe->resetVel();
+    _obstacles[2]->roof_pipe->resetVel();
+}
+
 float ObstacleManager::getFreePosition() {
     float max_x = 0.0;
     for(const auto& obstacle: _obstacles) {

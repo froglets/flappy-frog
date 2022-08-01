@@ -31,6 +31,7 @@ private:
     std::unique_ptr<StartScreen> startScreen;
     std::unique_ptr<EndScreen> endScreen;
     std::string active_screen{"start"};
+    SDL_Renderer* _renderer;
 };
 
 #endif /* ScreenManager_hpp */

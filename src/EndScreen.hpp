@@ -9,7 +9,6 @@ public:
     EndScreen(SDL_Renderer *renderer);
     ~EndScreen();
     void render();
-    int update(float elapsedTime, bool endGame);
     bool handleEvent(const SDL_Event& event);
 
 

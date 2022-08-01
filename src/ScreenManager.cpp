@@ -1,6 +1,7 @@
 #include "ScreenManager.hpp"
 
-ScreenManager::ScreenManager(SDL_Renderer *renderer)
+ScreenManager::ScreenManager(SDL_Renderer *renderer):
+_renderer(renderer)
 {
     gameScreen = std::make_unique<GameScreen>(renderer);
     startScreen = std::make_unique<StartScreen>(renderer);
@@ -14,6 +15,7 @@ ScreenManager::~ScreenManager() {
 void ScreenManager::handleEvent(const SDL_Event& event) {
     if (active_screen=="start") {
         if (startScreen->handleEvent(event)) {
+            gameScreen->resetGame();
             active_screen = "game";
         }
     }
@@ -37,24 +39,17 @@ void ScreenManager::render() {
     else if (active_screen=="end") {
         endScreen->render();
     }
+    SDL_RenderPresent(_renderer);
 }
 
 int ScreenManager::update(float elapsedTime, bool endGame) {
     bool ret = false;
-
-    if (active_screen=="start") {
-        ret = startScreen->update(elapsedTime, endGame);
-    }
-    else if (active_screen=="game") {
-        ret = gameScreen->update(elapsedTime, endGame);
+    if (active_screen=="game") {
+        ret = gameScreen->update(elapsedTime);
         if (ret) {
             active_screen = "end";
         }
     }
-    else if (active_screen=="end") {
-        ret = endScreen->update(elapsedTime, endGame);
-    }
-
     return ret;
 }
 

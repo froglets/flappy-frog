@@ -157,7 +157,6 @@ int Game::loop() {
         // move to screenmanager
         screenManager->render();
 
-        SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
 
