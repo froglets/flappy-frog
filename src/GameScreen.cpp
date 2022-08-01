@@ -62,9 +62,7 @@ bool GameScreen::update(float elapsedTime) {
 }
 
 void GameScreen::resetGame() {
-    _obstacles.reset();
     frog->setPosition(initFrogPos);
-    bool ret = update(1.0/60.0);
-    std::cout << ret << std::endl;
-    collision = false;
+    update(1.0/60.0);
+    _obstacles.reset();
 }
