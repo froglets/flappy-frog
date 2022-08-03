@@ -1,7 +1,11 @@
 #ifndef EndScreen_hpp
 #define EndScreen_hpp
 
+#include "Text.hpp"
+
 #include <SDL.h>
+
+#include <memory>
 
 class EndScreen {
 
@@ -14,6 +18,7 @@ public:
 
 private:
     SDL_Renderer* _renderer;
+    std::unique_ptr<Text> _end_text;
 };
 
 #endif /* EndScreen_hpp */

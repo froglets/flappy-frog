@@ -25,5 +25,6 @@ bool StartScreen::handleEvent(const SDL_Event& event) {
 
 void StartScreen::render() {
     SDL_SetRenderDrawColor( _renderer, 24, 34, 216, 0 );
+    SDL_RenderClear( _renderer );
     _start_text->render();
 }
