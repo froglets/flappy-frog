@@ -18,11 +18,11 @@ public:
     void render();
     int update(float elapsedTime, bool endGame);
     void handleEvent(const SDL_Event& event);
-
-private:
     std::unique_ptr<GameScreen> gameScreen;
     std::unique_ptr<StartScreen> startScreen;
     std::unique_ptr<EndScreen> endScreen;
+
+private:
     std::string active_screen{"start"};
     SDL_Renderer* _renderer;
 };

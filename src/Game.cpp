@@ -112,13 +112,11 @@ int Game::connect() {
          std::cout << "Connected!" << std::endl;
 
          // Register button state changed callback to function cb_button_state_changed
-         /* TODO: pass the frog!
           rgb_led_button_register_callback(&rlb,
                                           RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
                                           (void (*)(void))cb_button_state_changed,
-                                          (void *)frog->getBody());
+                                          (void *)screenManager->gameScreen->frog->getBody());
 
-          **/
      }
     return 0;
 }
@@ -142,17 +140,15 @@ int Game::loop() {
             }
         }
         
-        // TODO: FIX!
-        //b2Vec2 frog_screen_position = world2screen(frog->getPosition());
-        //std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
-        // TODO: FIX!
-        //float color = remap(frog_screen_position.y, 400, 0, 0, 255);
-        //std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
+        b2Vec2 frog_screen_position = world2screen(screenManager->gameScreen->frog->getPosition());
+        std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
+
+        float color = remap(frog_screen_position.y, 400, 0, 0, 255);
+        std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
 
         //Set button color
-        // TODO: FIX!
-        //if (connection)
-        //    rgb_led_button_set_color(&rlb, 200, color, 0);
+        if (connection)
+            rgb_led_button_set_color(&rlb, 200, color, 0);
 
         // move to screenmanager
         screenManager->render();

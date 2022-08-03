@@ -32,11 +32,11 @@ public:
 
     b2Vec2 initFrogPos;
     b2Vec2 initPipePos;
+    std::unique_ptr<Frog> frog;
 
 private:
     World world{};
     ObstacleManager _obstacles;    
-    std::unique_ptr<Frog> frog;
     std::unique_ptr<Pipe> pipe;
     SDL_Renderer* _renderer;
     bool collision{false};
