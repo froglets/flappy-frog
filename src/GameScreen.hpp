@@ -21,6 +21,7 @@
 #include "World.hpp"
 #include "Layer.hpp"
 #include "ObstacleManager.hpp"
+#include "Text.hpp"
 
 class World;
 
@@ -33,7 +34,9 @@ public:
     bool update(float elapsedTime);
     bool handleEvent(const SDL_Event& event);
     void resetGame();
-    
+    int getScore(){return _score;};
+    int getMaxScore(){return _max_score;};
+
     b2Vec2 initFrogPos;
     b2Vec2 initPipePos;
 
@@ -48,6 +51,11 @@ private:
     std::unique_ptr<Layer> sky;
     std::unique_ptr<Layer> mountains;
     std::unique_ptr<Layer> ground;
+    
+    std::unique_ptr<Text> _game_text;
+    
+    int _score{0};
+    int _max_score{0};
 };
 
 

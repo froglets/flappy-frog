@@ -47,6 +47,7 @@ int ScreenManager::update(float elapsedTime, bool endGame) {
     if (active_screen=="game") {
         ret = gameScreen->update(elapsedTime);
         if (ret) {
+            endScreen->setScore(gameScreen->getScore(), gameScreen->getMaxScore());
             active_screen = "end";
         }
     }

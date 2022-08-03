@@ -22,6 +22,9 @@ _renderer(renderer)
     sky = std::make_unique<Layer>(_renderer, "background-sky.png", 100);
     mountains = std::make_unique<Layer>(_renderer, "background-mountains.png", 20);
     ground = std::make_unique<Layer>(_renderer, "background-ground.png", 840);
+
+    _game_text = std::make_unique<Text>(std::string("0"), _renderer, 48, SDL_Color{128, 128, 128, 0}, Game::SCREEN_WIDTH/2.0, Game::SCREEN_HEIGHT/8.0);
+
 }
 
 GameScreen::~GameScreen() {
@@ -44,9 +47,11 @@ void GameScreen::render() {
     frog->render();
     _obstacles.render();
     ground->render();
+    _game_text->render();
 }
 
 bool GameScreen::update(float elapsedTime) {
+    float before = _obstacles.nearestdPipeX(frog->getPosition());
     collision = world.checkFrogCollision();
     if (!collision) {
         _obstacles.update(elapsedTime);
@@ -57,7 +62,15 @@ bool GameScreen::update(float elapsedTime) {
     else {
         _obstacles.stop();
     }
-    world.update(elapsedTime);    
+    world.update(elapsedTime);
+    float after = _obstacles.nearestdPipeX(frog->getPosition());
+    if (before>0 && after <0) {
+        _score++;
+        if (_score>_max_score) {
+            _max_score = _score;
+        }
+        _game_text->setText(std::to_string(_score));
+    }
     return collision;
 }
 
@@ -65,4 +78,6 @@ void GameScreen::resetGame() {
     frog->setPosition(initFrogPos);
     update(1.0/60.0);
     _obstacles.reset();
+    _score=0;
+    _game_text->setText(std::to_string(_score));
 }

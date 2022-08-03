@@ -56,6 +56,20 @@ void ObstacleManager::update(float elapsedTime) {
     }
 }
 
+float ObstacleManager::nearestdPipeX(const b2Vec2& position) {
+    float min_dist = 1000.0;
+    float real_dist = 0.0;
+    for(const auto& obstacle: _obstacles) {
+        float dist = obstacle->floor_pipe->getBody()->GetTransform().p.x - position.x;
+        if (fabs(dist) < min_dist) {
+            real_dist = dist;
+            min_dist = fabs(dist);
+        }
+    }
+    return real_dist;
+}
+
+
 void ObstacleManager::render() {
     for(const auto& obstacle: _obstacles) {
         obstacle->floor_pipe->render();
