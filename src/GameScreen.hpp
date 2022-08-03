@@ -1,10 +1,3 @@
-//
-//  GameScreen.hpp
-//  flappy-frog
-//
-//  Created by Conan Team on 29/7/22.
-//
-
 #ifndef GameScreen_hpp
 #define GameScreen_hpp
 

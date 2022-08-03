@@ -1,10 +1,3 @@
-//
-//  ScreenManager.hpp
-//  flappy-frog
-//
-//  Created by Conan Team on 29/7/22.
-//
-
 #ifndef ScreenManager_hpp
 #define ScreenManager_hpp
 
