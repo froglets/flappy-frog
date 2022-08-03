@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include "Layer.hpp"
+#include "Text.hpp"
 
 class StartScreen {
 
@@ -18,8 +18,7 @@ public:
 
 private:
     SDL_Renderer* _renderer;
-    std::unique_ptr<Layer> start;
-
+    std::unique_ptr<Text> _start_text;
 };
 
 #endif /* StartScreen_hpp */

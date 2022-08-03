@@ -23,6 +23,7 @@ class FlappyFrom(ConanFile):
         self.requires("sdl/2.0.20")
         self.requires("sdl_image/2.0.5")
         self.requires("sdl_mixer/2.0.4")
+        self.requires("sdl_ttf/2.0.18")
         self.requires("box2d/2.4.1")
         self.requires("fmt/8.1.1")
         self.requires("tinkerforge-bindings/2.1.32")

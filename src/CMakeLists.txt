@@ -4,6 +4,7 @@ find_package(SDL2 REQUIRED CONFIG)
 find_package(box2d REQUIRED CONFIG)
 # FIXME: sdl_image conan package still not adding properties
 find_package(sdl_image REQUIRED CONFIG)
+find_package(SDL2_ttf REQUIRED CONFIG)
 find_package(SDL2_mixer REQUIRED CONFIG)
 find_package(fmt REQUIRED CONFIG)
 find_package(tinkerforge-bindings REQUIRED CONFIG)
@@ -39,13 +40,15 @@ add_executable(flappy-frog main.cpp
                            GameScreen.hpp
                            EndScreen.cpp 
                            EndScreen.hpp
-                           ${ADDITIONAL_PROJECT_FILES})                           
+                           Text.cpp
+                           Text.hpp
+                           ${ADDITIONAL_PROJECT_FILES})
 
 target_include_directories(flappy-frog PRIVATE include)
 
 # FIXME: sdl_image conan package still not adding properties
 target_link_libraries(flappy-frog fmt::fmt box2d::box2d SDL2::SDL2main 
-                      sdl_image::sdl_image SDL2_mixer::SDL2_mixer tinkerforge::bindings)
+                      sdl_image::sdl_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer tinkerforge::bindings)
 
 if (NOT IOS)
         target_link_libraries(flappy-frog CLI11::CLI11)
