@@ -63,23 +63,19 @@ Game::Game() {
         Game::SCALEY = Game::SCREEN_HEIGHT/Game::WORLD_HEIGHT;
     #endif
 
-    initFrogPos = b2Vec2(WORLD_WIDTH/3.0,WORLD_HEIGHT/2.0);
-
     unsigned int windowFlags = SDL_WINDOW_SHOWN;
     #ifdef IS_IOS
         windowFlags |= SDL_WINDOW_BORDERLESS | SDL_WINDOW_FULLSCREEN;
     #endif
 
     _window = SDL_CreateWindow("Flappy Frog",
-                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
+                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                               SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 
     _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-
-    frog = std::make_unique<Frog>(initFrogPos, world, _renderer);
-
-    _obstacles.init(world, _renderer);
+    
+    screenManager = std::make_unique<ScreenManager>(_renderer);
 }
 
 void Game::addConnection(Connection conn) {
@@ -116,10 +112,11 @@ int Game::connect() {
          std::cout << "Connected!" << std::endl;
 
          // Register button state changed callback to function cb_button_state_changed
-         rgb_led_button_register_callback(&rlb,
-                                         RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
-                                         (void (*)(void))cb_button_state_changed,
-                                         (void *)frog->getBody());
+          rgb_led_button_register_callback(&rlb,
+                                          RGB_LED_BUTTON_CALLBACK_BUTTON_STATE_CHANGED,
+                                          (void (*)(void))cb_button_state_changed,
+                                          (void *)screenManager->gameScreen->frog->getBody());
+
      }
     return 0;
 }
@@ -127,10 +124,6 @@ int Game::connect() {
 int Game::loop() {
 
     SDL_Event event;
-
-    Layer sky(_renderer, "background-sky.png", 100);
-    Layer mountains(_renderer, "background-mountains.png", 20);
-    Layer ground(_renderer, "background-ground.png", 840);
 
     bool quit = false;
     double elapsedTime = 1.0/60.0;
@@ -142,52 +135,28 @@ int Game::loop() {
             {
                 quit = true;
             }
-            else if (event.key.keysym.sym == SDLK_UP || event.type == SDL_FINGERDOWN)
-            {
-                frog->impulse();
+            else {
+                screenManager->handleEvent(event);
             }
         }
+        
+        b2Vec2 frog_screen_position = world2screen(screenManager->gameScreen->frog->getPosition());
+        std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
 
-        //Clear screen
-        SDL_SetRenderDrawColor( _renderer, 120, 120, 230, 0 );
-        SDL_RenderClear( _renderer );
-
-        b2Vec2 frog_screen_position = world2screen(frog->getPosition());
-        //std::cout << fmt::format("Body position Y coordinate: {pos}", fmt::arg("pos", frog_screen_position.y)) << std::endl;
         float color = remap(frog_screen_position.y, 400, 0, 0, 255);
-        //std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
+        std::cout << fmt::format("Button color G value: {col}", fmt::arg("col", color)) << std::endl;
 
         //Set button color
         if (connection)
             rgb_led_button_set_color(&rlb, 200, color, 0);
 
-        sky.render();
-        mountains.render();
+        // move to screenmanager
+        screenManager->render();
 
-        frog->render();
-        _obstacles.render();
-
-        ground.render();
-
-
-        SDL_RenderPresent( _renderer );
         uint32_t currTime = SDL_GetTicks();
         elapsedTime = (currTime - startTime) / 1000.0; // Convert to seconds.
 
-        bool killed = world.checkFrogCollision();
-
-        if (!killed) {
-            _obstacles.update(elapsedTime);
-
-            sky.update(elapsedTime);
-            mountains.update(elapsedTime);
-            ground.update(elapsedTime);
-        }
-        else {
-            _obstacles.stop();
-        }
-
-        world.update(elapsedTime);
+        endGame = screenManager->update(elapsedTime, endGame);
     }
     SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);

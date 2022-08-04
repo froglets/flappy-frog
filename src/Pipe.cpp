@@ -10,8 +10,6 @@ _roof(roof),
 _renderer(renderer),
 _init_pos(position)
 {
-    // Create a dynamic body
-    b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x, position.y);
     _body = world.getWorld()->CreateBody(&bodyDef);
@@ -34,6 +32,14 @@ _init_pos(position)
 
     _body->GetUserData().pointer=(uintptr_t)myData;
     _texture = initTexture("pipe.png");
+}
+
+void Pipe::setPosition(const b2Vec2& pos) {
+    _body->SetTransform(pos, 0.0);
+}
+
+void Pipe::resetVel() {
+    _body->SetLinearVelocity(b2Vec2(-2.25,0.0));
 }
 
 void Pipe::stop() {

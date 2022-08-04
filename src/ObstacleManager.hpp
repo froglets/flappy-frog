@@ -23,7 +23,10 @@ public:
     void init(World& world, SDL_Renderer *renderer);
     void render();
     void stop();
+    void reset();
     float getFreePosition();
+    float nearestdPipeX(const b2Vec2& position);
+    
 private:
     std::array<std::unique_ptr<Obstacle>, 3> _obstacles {std::make_unique<Obstacle>(),
                                                          std::make_unique<Obstacle>(),

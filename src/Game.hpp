@@ -4,9 +4,9 @@
 #include <ip_connection.h>
 #include <bricklet_rgb_led_button.h>
 
-#include "Frog.hpp"
-#include "Pipe.hpp"
-#include "World.hpp"
+#include "ScreenManager.hpp"
+#include "GameScreen.hpp"
+
 #include "ObstacleManager.hpp"
 
 struct BodyUserData
@@ -55,17 +55,9 @@ public:
     static const b2Vec2& screen2world(const b2Vec2&);
     static const b2Vec2& world2screen(const b2Vec2&);
 
-    b2Vec2 initFrogPos;
-    b2Vec2 initPipePos;
-
 private:
-    World world{};
-
-    ObstacleManager _obstacles;
-    
-    std::unique_ptr<Frog> frog;
-    std::unique_ptr<Pipe> pipe;
-
+    bool endGame{false};
+    std::unique_ptr<ScreenManager> screenManager;
     Connection connection;
     IPConnection ipcon;
     RGBLEDButton rlb;
